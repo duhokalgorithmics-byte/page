@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graphic Design - Algorithmics Duhok</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="presentation-container">
+    <div class="export-toolbar">
+      <a href="index.html" class="btn" style="background:#fff; color:var(--primary-blue); border: 1px solid #ddd;">&larr; Back to Hub</a>
+      <button class="btn btn-orange" onclick="exportSlides(this)">Export Slides to PNG</button>
+    </div>
+    
+    <div class="carousel-grid" id="carousel">
+      <!-- SLIDE 1 (COVER) -->
+      <div class="slide">
+        <!-- Using vibrant CSS geometry since graphic design image is excluded -->
+        <div class="slide-bg-shape shape-1" style="background:var(--accent-yellow)"></div>
+        <div class="slide-bg-shape shape-2" style="background:var(--primary-orange); left: 50%;"></div>
+        
+        <div class="slide-content" style="background: rgba(17,30,71,0.5); backdrop-filter: blur(10px);">
+          <div class="title-badge">Ages 9 - 14</div>
+          <h1 class="main-title">Graphic <br><span>Design</span></h1>
+          
+          <div class="slide-glass-box">
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">Program Duration</span>
+                <span class="info-value highlight">8 Weeks</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Pacing</span>
+                <span class="info-value">4 Days / Week</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Format</span>
+                <span class="info-value">Summer Intensive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 (DETAILS) -->
+      <div class="slide">
+        <div class="slide-content" style="background: var(--primary-blue);">
+          <div class="slide-header">
+            <div class="brand-logo">Algorithmics<span>.</span></div>
+            <div class="slide-number">02</div>
+          </div>
+          
+          <h2 class="content-title">Course Details</h2>
+          
+          <ul class="features-list">
+            <li class="feature-item">
+              <strong>Visual Communication:</strong> Learn the principles of modern design, color theory, and professional typography.
+            </li>
+            <li class="feature-item">
+              <strong>Professional Tools:</strong> Dive into actual digital editing and design software used by graphic artists globally.
+            </li>
+            <li class="feature-item">
+              <strong>Portfolio Creation:</strong> Students create posters, web designs, and their own fully realized digital brand projects.
+            </li>
+          </ul>
+          
+          <div class="brand-footer">
+            <span>Duhok Branch</span>
+            <span>Join the Summer Cohort!</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    async function exportSlides(btn) {
+      const originalText = btn.innerText;
+      btn.innerText = "Exporting...";
+      btn.style.opacity = "0.7";
+      btn.style.pointerEvents = "none";
+      
+      const slides = document.querySelectorAll('.slide');
+      for (let i = 0; i < slides.length; i++) {
+         const canvas = await html2canvas(slides[i], { scale: 2, useCORS: true });
+         const link = document.createElement('a');
+         link.download = `Graphic_Design_Slide_${i+1}.png`;
+         link.href = canvas.toDataURL('image/png');
+         link.click();
+         await new Promise(r => setTimeout(r, 800));
+      }
+      
+      btn.innerText = originalText;
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    }
+  </script>
+</body>
+</html>

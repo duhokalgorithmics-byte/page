@@ -1,0 +1,118 @@
+﻿Total slides: 17
+=== SLIDE 1 ===
+  TYPE:TEXT_BOX (17) TEXT: Strategic Partnership Proposal
+  TYPE:TEXT_BOX (17) TEXT: Algorithmics International Courses in MosulAl Sharqiya School GroupPrepared by Zaid Redhwan
+
+=== SLIDE 2 ===
+  TYPE:TEXT_BOX (17) TEXT: Executive Summary
+  TYPE:TEXT_BOX (17) TEXT: 
+International coding & AI programs
+New revenue stream
+Future-ready school positioning
+
+=== SLIDE 3 ===
+  TYPE:TEXT_BOX (17) TEXT: Objectives
+  TYPE:TEXT_BOX (17) TEXT: 
+Differentiate school
+Increase enrollment
+Generate revenue
+Build student pipeline
+
+=== SLIDE 4 ===
+  TYPE:TEXT_BOX (17) TEXT: Program Structure
+  TYPE:TEXT_BOX (17) TEXT: 
+Inside school campuses
+Dedicated classrooms
+After school programs
+Internal + external students
+
+=== SLIDE 5 ===
+  TYPE:TEXT_BOX (17) TEXT: Course Pathway
+  TYPE:TEXT_BOX (17) TEXT: 
+Ages 6ΓÇô18 full pathway
+Foundation ΓåÆ Core ΓåÆ Advanced
+
+=== SLIDE 6 ===
+  TYPE:TEXT_BOX (17) TEXT: Foundation Courses
+  TYPE:TEXT_BOX (17) TEXT: 
+Coding Knight
+Digital Literacy
+Focus on logic and basics
+
+=== SLIDE 7 ===
+  TYPE:TEXT_BOX (17) TEXT: Core Courses
+  TYPE:TEXT_BOX (17) TEXT: 
+Visual Programming
+Game Design
+Web Development
+Python Start
+
+=== SLIDE 8 ===
+  TYPE:TEXT_BOX (17) TEXT: Advanced Courses
+  TYPE:TEXT_BOX (17) TEXT: 
+AI
+Unity
+Python Pro
+Front-End Development
+
+=== SLIDE 9 ===
+  TYPE:TEXT_BOX (17) TEXT: Launch Strategy
+  TYPE:TEXT_BOX (17) TEXT: 
+Start with 4 courses
+AI,coding knights, visual programming, python start
+Expand gradually
+Scale advanced programs
+
+=== SLIDE 10 ===
+  TYPE:TEXT_BOX (17) TEXT: Class Model
+  TYPE:TEXT_BOX (17) TEXT: 
+8ΓÇô12 students
+45ΓÇô90 min sessions
+Structured curriculum
+
+=== SLIDE 11 ===
+  TYPE:TEXT_BOX (17) TEXT: Marketing
+  TYPE:TEXT_BOX (17) TEXT: 
+Demo classes
+Parent events
+Social media
+Open days
+
+=== SLIDE 12 ===
+  TYPE:TEXT_BOX (17) TEXT: Infrastructure
+  TYPE:TEXT_BOX (17) TEXT: 
+School: space
+Algorithmics: content & training
+
+=== SLIDE 13 ===
+  TYPE:TEXT_BOX (17) TEXT: Revenue Model
+  TYPE:TEXT_BOX (17) TEXT: 
+Revenue share
+Joint model
+Scalable income
+
+=== SLIDE 14 ===
+  TYPE:TEXT_BOX (17) TEXT: Timeline
+  TYPE:TEXT_BOX (17) TEXT: 
+6ΓÇô8 weeks to launch
+Fast implementation
+
+=== SLIDE 15 ===
+  TYPE:TEXT_BOX (17) TEXT: Competitive Advantage
+  TYPE:TEXT_BOX (17) TEXT: 
+First in Mosul
+International curriculum
+Strong positioning
+
+=== SLIDE 16 ===
+  TYPE:TEXT_BOX (17) TEXT: Next Steps
+  TYPE:TEXT_BOX (17) TEXT: 
+Finalize agreement
+Pilot schools
+Launch & market
+
+=== SLIDE 17 ===
+  TYPE:TEXT_BOX (17) TEXT: Conclusion
+  TYPE:TEXT_BOX (17) TEXT: 
+Building future tech education ecosystem
+

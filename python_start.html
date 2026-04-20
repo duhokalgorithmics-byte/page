@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Start - Algorithmics Duhok</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="presentation-container">
+    <div class="export-toolbar">
+      <a href="index.html" class="btn" style="background:#fff; color:var(--primary-blue); border: 1px solid #ddd;">&larr; Back to Hub</a>
+      <button class="btn btn-orange" onclick="exportSlides(this)">Export Slides to PNG</button>
+    </div>
+    
+    <div class="carousel-grid" id="carousel">
+      <!-- SLIDE 1 (COVER) -->
+      <div class="slide">
+        <img src="assets/python_start.png" class="slide-bg-img" alt="Background">
+        <div class="slide-bg-shape shape-1"></div>
+        <div class="slide-bg-shape shape-2"></div>
+        
+        <div class="slide-content">
+          <div class="title-badge">Ages 12 - 13</div>
+          <h1 class="main-title">Python <br><span>Start</span></h1>
+          
+          <div class="slide-glass-box">
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">Program Duration</span>
+                <span class="info-value highlight">8 Weeks</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Pacing</span>
+                <span class="info-value">4 Days / Week</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Format</span>
+                <span class="info-value">Summer Intensive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 (DETAILS) -->
+      <div class="slide">
+        <div class="slide-content" style="background: var(--primary-blue);">
+          <div class="slide-header">
+            <div class="brand-logo">Algorithmics<span>.</span></div>
+            <div class="slide-number">02</div>
+          </div>
+          
+          <h2 class="content-title">Course Details</h2>
+          
+          <ul class="features-list">
+            <li class="feature-item">
+              <strong>Intro to Real Code:</strong> Transition from visual blocks to text-based coding using Python, the world's leading language.
+            </li>
+            <li class="feature-item">
+              <strong>Core Architecture:</strong> Learn loops, variables, functions, and logic operators through engaging visual exercises.
+            </li>
+            <li class="feature-item">
+              <strong>Interactive Projects:</strong> Create actual working software, text-based games, and interactive applications to showcase skills.
+            </li>
+          </ul>
+          
+          <div class="brand-footer">
+            <span>Duhok Branch</span>
+            <span>Join the Summer Cohort!</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    async function exportSlides(btn) {
+      const originalText = btn.innerText;
+      btn.innerText = "Exporting...";
+      btn.style.opacity = "0.7";
+      btn.style.pointerEvents = "none";
+      
+      const slides = document.querySelectorAll('.slide');
+      for (let i = 0; i < slides.length; i++) {
+         const canvas = await html2canvas(slides[i], { scale: 2, useCORS: true });
+         const link = document.createElement('a');
+         link.download = `Python_Start_Slide_${i+1}.png`;
+         link.href = canvas.toDataURL('image/png');
+         link.click();
+         await new Promise(r => setTimeout(r, 800));
+      }
+      
+      btn.innerText = originalText;
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    }
+  </script>
+</body>
+</html>

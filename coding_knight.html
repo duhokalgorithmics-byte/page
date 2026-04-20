@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Knight - Algorithmics Duhok</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="presentation-container">
+    <div class="export-toolbar">
+      <a href="index.html" class="btn" style="background:#fff; color:var(--primary-blue); border: 1px solid #ddd;">&larr; Back to Hub</a>
+      <button class="btn btn-orange" onclick="exportSlides(this)">Export Slides to PNG</button>
+    </div>
+    
+    <div class="carousel-grid" id="carousel">
+      <!-- SLIDE 1 (COVER) -->
+      <div class="slide">
+        <!-- Optional AI image overlaid as background -->
+        <img src="assets/coding_knight.png" class="slide-bg-img" alt="Background">
+        <div class="slide-bg-shape shape-1"></div>
+        <div class="slide-bg-shape shape-2"></div>
+        
+        <div class="slide-content">
+          <div class="title-badge">Ages 5 - 7</div>
+          <h1 class="main-title">Coding <br><span>Knight</span></h1>
+          
+          <div class="slide-glass-box">
+            <div class="info-row">
+              <div class="info-item">
+                <span class="info-label">Program Duration</span>
+                <span class="info-value highlight">8 Weeks</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Pacing</span>
+                <span class="info-value">4 Days / Week</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Format</span>
+                <span class="info-value">Summer Intensive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2 (DETAILS) -->
+      <div class="slide">
+        <div class="slide-content" style="background: var(--primary-blue);">
+          <div class="slide-header">
+            <div class="brand-logo">Algorithmics<span>.</span></div>
+            <div class="slide-number">02</div>
+          </div>
+          
+          <h2 class="content-title">Course Details</h2>
+          
+          <ul class="features-list">
+            <li class="feature-item">
+              <strong>Interactive Learning:</strong> Discover coding through block-based visual platforms designed for early childhood.
+            </li>
+            <li class="feature-item">
+              <strong>Logic & Puzzles:</strong> Solve fun logical challenges that build essential problem-solving frameworks.
+            </li>
+            <li class="feature-item">
+              <strong>Creative Thinking:</strong> Students create their first digital projects, fostering creativity and confidence with technology.
+            </li>
+          </ul>
+          
+          <div class="brand-footer">
+            <span>Duhok Branch</span>
+            <span>Join the Summer Cohort!</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    async function exportSlides(btn) {
+      const originalText = btn.innerText;
+      btn.innerText = "Exporting...";
+      btn.style.opacity = "0.7";
+      btn.style.pointerEvents = "none";
+      
+      const slides = document.querySelectorAll('.slide');
+      for (let i = 0; i < slides.length; i++) {
+         const canvas = await html2canvas(slides[i], { scale: 2, useCORS: true });
+         const link = document.createElement('a');
+         link.download = `Coding_Knight_Slide_${i+1}.png`;
+         link.href = canvas.toDataURL('image/png');
+         link.click();
+         await new Promise(r => setTimeout(r, 800));
+      }
+      
+      btn.innerText = originalText;
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    }
+  </script>
+</body>
+</html>

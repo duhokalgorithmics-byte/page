@@ -1,0 +1,3636 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algorithmics Duhok — Programming School for Kids</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'MainKurdishFont';
+      src: url('K24KurdishLight-Light.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html:lang(ku),
+    html:lang(ku) body {
+      font-family: 'MainKurdishFont', sans-serif;
+      font-size: 110%;
+    }
+
+    html:lang(ku) h1,
+    html:lang(ku) h2,
+    html:lang(ku) h3,
+    html:lang(ku) h4,
+    html:lang(ku) h5,
+    html:lang(ku) .lang-btn,
+    html:lang(ku) .hero-title,
+    html:lang(ku) .hero-sub,
+    html:lang(ku) .stat-num,
+    html:lang(ku) .section-heading,
+    html:lang(ku) .course-name,
+    html:lang(ku) .cta-heading,
+    html:lang(ku) .btn-wa {
+      font-family: 'MainKurdishFont', sans-serif;
+    }
+
+    :root {
+      --purple: #6d1896;
+      --purple-dark: #4a0e6b;
+      --purple-glow: rgba(109, 24, 150, 0.4);
+      --cyan: #0cd1d7;
+      --green: #0dee92;
+      --yellow: #ffd832;
+      --yellow-hover: #ffc107;
+      --pink: #f44c75;
+      --coral: #ff6b6b;
+      --bg-dark: #0a0118;
+      --bg-section: #0f0320;
+      --bg-card: rgba(255, 255, 255, 0.04);
+      --bg-card-hover: rgba(255, 255, 255, 0.08);
+      --text: #f0edf5;
+      --text-dim: rgba(240, 237, 245, 0.6);
+      --text-muted: rgba(240, 237, 245, 0.35);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(109, 24, 150, 0.3);
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-pill: 50px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      transition: transform 0.1s;
+      mix-blend-mode: screen;
+    }
+
+    .cursor-ring {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(13, 238, 146, 0.4);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 99998;
+      transition: all 0.15s ease-out;
+      mix-blend-mode: screen;
+    }
+
+    .cursor-ring.hovering {
+      width: 60px;
+      height: 60px;
+      border-color: var(--yellow);
+      background: rgba(255, 216, 50, 0.08);
+    }
+
+    /* Aurora background */
+    .aurora {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.3;
+      animation: auroraFloat 20s ease-in-out infinite alternate;
+      will-change: transform;
+      contain: strict;
+    }
+
+    .aurora-blob:nth-child(1) {
+      width: 600px;
+      height: 600px;
+      background: var(--purple);
+      top: -10%;
+      left: -10%;
+      animation-delay: 0s;
+    }
+
+    .aurora-blob:nth-child(2) {
+      width: 500px;
+      height: 500px;
+      background: var(--cyan);
+      top: 20%;
+      right: -15%;
+      animation-delay: -5s;
+      animation-duration: 25s;
+    }
+
+    .aurora-blob:nth-child(3) {
+      width: 700px;
+      height: 700px;
+      background: var(--green);
+      bottom: -20%;
+      left: 20%;
+      animation-delay: -10s;
+      opacity: 0.15;
+    }
+
+    .aurora-blob:nth-child(4) {
+      width: 400px;
+      height: 400px;
+      background: var(--pink);
+      top: 50%;
+      right: 30%;
+      animation-delay: -15s;
+      opacity: 0.12;
+    }
+
+    @keyframes auroraFloat {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(80px, -60px) scale(1.1);
+      }
+
+      66% {
+        transform: translate(-40px, 80px) scale(0.9);
+      }
+
+      100% {
+        transform: translate(60px, 30px) scale(1.05);
+      }
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      animation: particleDrift linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes particleDrift {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Grid overlay */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(109, 24, 150, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109, 24, 150, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Page wrapper */
+    .page-wrapper {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ═══ NAVBAR ═══ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: rgba(10, 1, 24, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-weight: 900;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-brand span {
+      font-weight: 600;
+      font-size: 0.75rem;
+      display: block;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .lang-pills {
+      display: flex;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 0.78rem;
+      padding: 8px 18px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      color: white;
+      box-shadow: 0 4px 20px var(--purple-glow), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .lang-btn:hover:not(.active) {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ═══ HERO ═══ */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px 60px;
+      position: relative;
+    }
+
+    .hero-3d-container {
+      perspective: 1000px;
+      margin-bottom: 32px;
+    }
+
+    .hero-card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+    }
+
+    .summer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 216, 50, 0.1);
+      border: 1px solid rgba(255, 216, 50, 0.3);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 32px;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .summer-pill .blink {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 216, 50, 0.1);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(255, 216, 50, 0.2);
+      }
+    }
+
+    .hero-title {
+      font-weight: 900;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      margin-bottom: 8px;
+      position: relative;
+      direction: ltr;
+      unicode-bidi: bidi-override;
+      text-align: center;
+    }
+
+    .hero-title .letter {
+      display: inline-block;
+      background: linear-gradient(180deg, #fff 30%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: letterFloat 3s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+
+    .hero-title .letter:hover {
+      transform: translateY(-10px) rotateZ(-5deg) scale(1.2);
+      filter: drop-shadow(0 0 20px var(--cyan));
+    }
+
+    @keyframes letterFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-shadow: 0 0 30px rgba(12, 209, 215, 0.5);
+      margin-bottom: 24px;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 500;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 16px;
+    }
+
+    .hero-desc strong {
+      color: var(--yellow);
+      font-weight: 800;
+    }
+
+    .hero-motivational {
+      font-size: 0.95rem;
+      color: var(--cyan);
+      font-weight: 600;
+      font-style: italic;
+      opacity: 0.8;
+      max-width: 550px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    .scroll-indicator .arrow {
+      width: 24px;
+      height: 40px;
+      border: 2px solid var(--text-muted);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-indicator .arrow::after {
+      content: '';
+      width: 4px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 2px;
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      transform: translateX(-50%);
+      animation: scrollDot 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0)
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(8px)
+      }
+    }
+
+    @keyframes scrollDot {
+      0% {
+        top: 8px;
+        opacity: 1
+      }
+
+      100% {
+        top: 24px;
+        opacity: 0
+      }
+    }
+
+    /* ═══ STATS ═══ */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+    }
+
+    .stat-block {
+      flex: 1;
+      max-width: 280px;
+      text-align: center;
+      padding: 36px 24px;
+      border-right: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .stat-block:last-child {
+      border-right: none;
+    }
+
+    .stat-block:hover {
+      background: rgba(109, 24, 150, 0.08);
+    }
+
+    .stat-block:hover .stat-value {
+      transform: scale(1.1);
+    }
+
+    .stat-value {
+      font-weight: 900;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--yellow), var(--coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    /* ═══ MARQUEE ═══ */
+    .marquee-section {
+      overflow: hidden;
+      padding: 28px 0;
+      position: relative;
+    }
+
+    .marquee-section::before,
+    .marquee-section::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      z-index: 2;
+    }
+
+    .marquee-section::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-dark), transparent);
+    }
+
+    .marquee-section::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-dark), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 16px;
+      animation: marqueeScroll 30s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes marqueeScroll {
+      0% {
+        transform: translateX(0)
+      }
+
+      100% {
+        transform: translateX(-50%)
+      }
+    }
+
+    .m-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+
+    .m-chip:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 20px rgba(12, 209, 215, 0.15);
+      transform: scale(1.05);
+    }
+
+    /* ═══ IMAGE GALLERY (3D Carousel) ═══ */
+    .gallery-section {
+      padding: 60px 24px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      height: 220px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px) rotateX(3deg) rotateY(-3deg);
+      box-shadow: 0 20px 60px rgba(109, 24, 150, 0.3), 0 0 40px rgba(12, 209, 215, 0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item .g-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(10, 1, 24, 0.85) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 20px;
+    }
+
+    .gallery-item .g-overlay span {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: white;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ═══ CTA BUTTON ═══ */
+    .cta-zone {
+      padding: 20px 24px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 48px;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--yellow), var(--yellow-hover));
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 32px rgba(255, 216, 50, 0.3);
+    }
+
+    .btn-wa::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+      transform: scale(0);
+      transition: transform 0.6s;
+    }
+
+    .btn-wa:hover::before {
+      transform: scale(1);
+    }
+
+    .btn-wa:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 16px 48px rgba(255, 216, 50, 0.4), 0 0 60px rgba(255, 216, 50, 0.15);
+    }
+
+    .btn-wa svg {
+      width: 24px;
+      height: 24px;
+      fill: #25D366;
+    }
+
+    /* ═══ GLASS SECTIONS ═══ */
+    .glass-section {
+      margin: 0 24px 60px;
+      padding: 48px 32px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    }
+
+    /* Trust section */
+    .trust-center {
+      text-align: center;
+    }
+
+    .trust-center h3 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--text), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .trust-center>p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .trust-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 20px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      transition: all 0.3s;
+    }
+
+    .trust-item:hover {
+      border-color: var(--purple);
+      background: rgba(109, 24, 150, 0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(109, 24, 150, 0.15);
+    }
+
+    .trust-item .t-emoji {
+      font-size: 2rem;
+    }
+
+    .trust-item span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-align: center;
+    }
+
+    /* Quote */
+    .quote-glass {
+      text-align: center;
+      position: relative;
+    }
+
+    .quote-glass::after {
+      content: '\201C';
+      font-size: 8rem;
+      color: var(--purple);
+      opacity: 0.1;
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      line-height: 1;
+      font-family: Georgia, serif;
+    }
+
+    .quote-glass p {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.8;
+      font-weight: 500;
+      max-width: 650px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-glass .q-author {
+      font-size: 0.8rem;
+      color: var(--cyan);
+      font-weight: 700;
+      margin-top: 16px;
+      font-style: normal;
+    }
+
+    /* ═══ SECTION HEADINGS ═══ */
+    .section-heading {
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      text-align: center;
+      margin-bottom: 8px;
+      padding: 0 24px;
+    }
+
+    .section-heading span {
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      font-weight: 500;
+      margin-bottom: 40px;
+      padding: 0 24px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Counter row */
+    .counter-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+
+    .counter-card {
+      text-align: center;
+      padding: 28px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .counter-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(109, 24, 150, 0.06));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .counter-card:hover::before {
+      opacity: 1;
+    }
+
+    .counter-card:hover {
+      border-color: var(--purple);
+      transform: translateY(-3px);
+    }
+
+    .counter-val {
+      font-weight: 900;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .counter-lbl {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ═══ WHY SECTION ═══ */
+    .why-section {
+      padding: 80px 24px;
+      background: var(--bg-section);
+      position: relative;
+    }
+
+    .why-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .why-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(109, 24, 150, 0.1), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .why-card:hover::after {
+      opacity: 1;
+    }
+
+    .why-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(109, 24, 150, 0.15);
+    }
+
+    .why-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      background: rgba(109, 24, 150, 0.12);
+      border: 1px solid rgba(109, 24, 150, 0.2);
+    }
+
+    .why-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .why-card p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ═══ VALUES ═══ */
+    .values-section {
+      padding: 80px 24px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .value-orb {
+      text-align: center;
+      padding: 36px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-orb::before {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, var(--purple-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .value-orb:hover::before {
+      opacity: 1;
+    }
+
+    .value-orb:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--border-glow);
+      box-shadow: 0 16px 48px rgba(109, 24, 150, 0.15);
+    }
+
+    .value-orb .v-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .value-orb h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .value-orb p {
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ═══ AGE PATHWAY (Horizontal timeline) ═══ */
+    .pathway-section {
+      padding: 80px 24px;
+      background: var(--bg-section);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pathway-track {
+      display: flex;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      scrollbar-width: none;
+    }
+
+    .pathway-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pathway-track::before {
+      content: '';
+      position: absolute;
+      top: 38px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--cyan), var(--green));
+      border-radius: 3px;
+    }
+
+    .path-node {
+      flex: 1;
+      min-width: 150px;
+      text-align: center;
+      padding: 0 12px;
+      position: relative;
+    }
+
+    .path-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 3px solid var(--cyan);
+      margin: 28px auto 16px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .path-node:hover .path-dot {
+      background: var(--cyan);
+      box-shadow: 0 0 20px rgba(12, 209, 215, 0.5);
+      transform: scale(1.3);
+    }
+
+    .path-age {
+      font-weight: 800;
+      font-size: 0.8rem;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+
+    .path-courses {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* ═══ COURSES (3D flip cards) ═══ */
+    .courses-section {
+      padding: 80px 24px;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .course-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(12, 209, 215, 0.06), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 0;
+    }
+
+    .course-card:hover::before {
+      opacity: 1;
+    }
+
+    .course-card:hover {
+      border-color: var(--border-glow);
+      box-shadow: 0 16px 48px rgba(109, 24, 150, 0.2), 0 0 40px rgba(12, 209, 215, 0.05);
+      transform: translateY(-6px);
+    }
+
+    .course-card.open {
+      border-color: var(--cyan);
+      box-shadow: 0 20px 60px rgba(12, 209, 215, 0.15), 0 0 60px rgba(109, 24, 150, 0.1);
+    }
+
+    .course-header {
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .course-emoji {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .course-emoji img {
+      height: 28px;
+    }
+
+    .course-header-info {
+      flex: 1;
+    }
+
+    .course-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .course-age-pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(13, 238, 146, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(13, 238, 146, 0.2);
+    }
+
+    .course-chevron {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
+    }
+
+    .course-card.open .course-chevron {
+      transform: rotate(180deg);
+      background: var(--purple);
+      border-color: var(--purple);
+    }
+
+    .course-chevron svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--text-dim);
+    }
+
+    .course-card.open .course-chevron svg {
+      fill: white;
+    }
+
+    .course-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .course-card.open .course-body {
+      max-height: 2000px;
+    }
+
+    .course-banner {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .course-card:hover .course-banner {
+      opacity: 1;
+    }
+
+    .course-content {
+      padding: 24px;
+    }
+
+    .course-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .course-meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+
+    .course-highlight {
+      background: rgba(255, 216, 50, 0.06);
+      border: 1px solid rgba(255, 216, 50, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--yellow);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .course-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--text-dim);
+    }
+
+    .course-desc strong {
+      color: var(--text);
+    }
+
+    .learn-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+    }
+
+    .learn-list li {
+      position: relative;
+      padding: 7px 0 7px 28px;
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    [dir="rtl"] .learn-list li {
+      padding: 7px 28px 7px 0;
+    }
+
+    .learn-list li::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--green));
+      box-shadow: 0 0 8px rgba(12, 209, 215, 0.3);
+    }
+
+    [dir="rtl"] .learn-list li::before {
+      left: auto;
+      right: 4px;
+    }
+
+    .learn-list li strong {
+      color: var(--text);
+    }
+
+    .course-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tool-tag {
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      background: rgba(109, 24, 150, 0.1);
+      color: rgba(200, 140, 255, 0.9);
+      border: 1px solid rgba(109, 24, 150, 0.2);
+    }
+
+    .course-outcome {
+      margin-top: 18px;
+      padding: 16px 18px;
+      background: rgba(13, 238, 146, 0.05);
+      border: 1px solid rgba(13, 238, 146, 0.15);
+      border-radius: var(--radius-sm);
+    }
+
+    .course-outcome h5 {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--green);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .course-outcome p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Course themes */
+    .theme-knight .course-emoji {
+      background: linear-gradient(135deg, #FFD93D, #FF6B6B);
+      box-shadow: 0 4px 20px rgba(255, 217, 61, 0.2);
+    }
+
+    .theme-digital .course-emoji {
+      background: linear-gradient(135deg, #82f7ff, #0075FF);
+      box-shadow: 0 4px 20px rgba(0, 117, 255, 0.2);
+    }
+
+    .theme-visual .course-emoji {
+      background: linear-gradient(135deg, #FF6B9D, #FF3CAC);
+      box-shadow: 0 4px 20px rgba(255, 60, 172, 0.2);
+    }
+
+    .theme-graphic .course-emoji {
+      background: linear-gradient(135deg, #21fad3, #00796B);
+      box-shadow: 0 4px 20px rgba(33, 250, 211, 0.2);
+    }
+
+    .theme-gamedesign .course-emoji {
+      background: linear-gradient(135deg, #FFC20E, #F7941E);
+      box-shadow: 0 4px 20px rgba(247, 148, 30, 0.2);
+    }
+
+    .theme-websites .course-emoji {
+      background: linear-gradient(135deg, #C6FF00, #00C896);
+      box-shadow: 0 4px 20px rgba(0, 200, 150, 0.2);
+    }
+
+    .theme-python .course-emoji {
+      background: linear-gradient(135deg, #833ae0, #6d1896);
+      box-shadow: 0 4px 20px rgba(131, 58, 224, 0.2);
+    }
+
+    .theme-ai .course-emoji {
+      background: linear-gradient(135deg, #0cd1d7, #6d1896);
+      box-shadow: 0 4px 20px rgba(12, 209, 215, 0.2);
+    }
+
+    .theme-unity .course-emoji {
+      background: linear-gradient(135deg, #00af85, #004D40);
+      box-shadow: 0 4px 20px rgba(0, 175, 133, 0.2);
+    }
+
+    .theme-pythonpro .course-emoji {
+      background: linear-gradient(135deg, #F7941E, #FF6B6B);
+      box-shadow: 0 4px 20px rgba(247, 148, 30, 0.2);
+    }
+
+    .theme-frontend .course-emoji {
+      background: linear-gradient(135deg, #f44c75, #1d1130);
+      box-shadow: 0 4px 20px rgba(244, 76, 117, 0.2);
+    }
+
+    .theme-video .course-emoji {
+      background: linear-gradient(135deg, #ffb0cd, #f44c75);
+      box-shadow: 0 4px 20px rgba(244, 76, 117, 0.2);
+    }
+
+    /* ═══ BOTTOM CTA ═══ */
+    .cta-finale {
+      padding: 100px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cta-finale::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(109, 24, 150, 0.15) 0%, transparent 70%);
+    }
+
+    .cta-heading {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .cta-heading span {
+      background: linear-gradient(135deg, var(--yellow), var(--coral));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-desc {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+      position: relative;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .site-footer {
+      padding: 32px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .site-footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer a {
+      color: var(--cyan);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .site-footer a:hover {
+      color: var(--green);
+    }
+
+    /* ═══ ANIMATIONS ═══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Stagger children */
+    .stagger>*:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+
+    .stagger>*:nth-child(2) {
+      transition-delay: 0.1s;
+    }
+
+    .stagger>*:nth-child(3) {
+      transition-delay: 0.15s;
+    }
+
+    .stagger>*:nth-child(4) {
+      transition-delay: 0.2s;
+    }
+
+    .stagger>*:nth-child(5) {
+      transition-delay: 0.25s;
+    }
+
+    .stagger>*:nth-child(6) {
+      transition-delay: 0.3s;
+    }
+
+    /* Mobile adjustments */
+    /* ═══ MOBILE (768px and below) ═══ */
+    @media (max-width: 768px) {
+
+      /* Kill cursor, particles, grid for performance */
+      body {
+        cursor: auto;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .cursor-dot,
+      .cursor-ring {
+        display: none;
+      }
+
+      .grid-overlay {
+        display: none;
+      }
+
+      .particles {
+        display: none;
+      }
+
+      /* Simplify aurora for performance */
+      .aurora-blob {
+        filter: blur(60px);
+        opacity: 0.12;
+        animation: none;
+      }
+
+      /* Page wrapper — full width on mobile */
+      .page-wrapper {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      /* Navbar: compact horizontal layout */
+      .navbar {
+        padding: 10px 14px;
+        gap: 8px;
+        position: sticky;
+        top: 0;
+      }
+
+      .nav-brand {
+        font-size: 1rem;
+      }
+
+      .nav-brand span {
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
+      }
+
+      .lang-pills {
+        padding: 3px;
+        gap: 2px;
+      }
+
+      .lang-btn {
+        padding: 8px 14px;
+        font-size: 0.7rem;
+        min-height: 36px;
+      }
+
+      /* Hero: prevent overflow */
+      .hero-section {
+        min-height: auto;
+        padding: 32px 16px 50px;
+      }
+
+      .summer-pill {
+        font-size: 0.72rem;
+        padding: 8px 16px;
+        margin-bottom: 24px;
+      }
+
+      .hero-title {
+        font-size: 2.8rem !important;
+      }
+
+      .hero-sub {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        margin-bottom: 16px;
+      }
+
+      .hero-desc {
+        font-size: 0.95rem;
+        padding: 0 4px;
+        margin-bottom: 12px;
+      }
+
+      .hero-motivational {
+        font-size: 0.82rem;
+      }
+
+      .scroll-indicator {
+        bottom: 12px;
+      }
+
+      /* Stats: horizontal scroll row */
+      .stats-strip {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+
+      .stats-strip::-webkit-scrollbar {
+        display: none;
+      }
+
+      .stat-block {
+        padding: 22px 20px;
+        border-right: 1px solid var(--border);
+        border-bottom: none;
+        min-width: 33.33%;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+      }
+
+      .stat-block:last-child {
+        border-right: none;
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+      }
+
+      .stat-label {
+        font-size: 0.72rem;
+      }
+
+      /* Marquee */
+      .marquee-section {
+        padding: 20px 0;
+      }
+
+      .m-chip {
+        padding: 8px 14px;
+        font-size: 0.72rem;
+      }
+
+      /* Gallery: single column, swipeable */
+      .gallery-section {
+        padding: 32px 16px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .gallery-item {
+        height: 200px;
+        border-radius: 16px;
+      }
+
+      .gallery-item:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* CTA buttons — big touch target */
+      .cta-zone {
+        padding: 16px 16px 32px;
+      }
+
+      .btn-wa {
+        width: 100%;
+        padding: 18px 20px;
+        font-size: 1rem;
+        border-radius: 16px;
+        min-height: 56px;
+      }
+
+      /* Glass sections */
+      .glass-section {
+        margin: 0 12px 28px;
+        padding: 28px 18px;
+        border-radius: 16px;
+      }
+
+      .trust-center h3 {
+        font-size: 1.2rem;
+      }
+
+      .trust-center>p {
+        font-size: 0.82rem;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .trust-item {
+        padding: 16px 10px;
+        min-height: 88px;
+      }
+
+      .trust-item .t-emoji {
+        font-size: 1.6rem;
+      }
+
+      .trust-item span {
+        font-size: 0.7rem;
+      }
+
+      /* Quotes */
+      .quote-glass p {
+        font-size: 0.92rem;
+      }
+
+      .quote-glass .q-author {
+        font-size: 0.75rem;
+      }
+
+      /* Counters */
+      .counter-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 0 16px;
+        margin-bottom: 40px;
+      }
+
+      .counter-card {
+        padding: 20px 12px;
+      }
+
+      .counter-val {
+        font-size: 1.6rem;
+      }
+
+      .counter-lbl {
+        font-size: 0.68rem;
+      }
+
+      /* Section headings */
+      .section-heading {
+        font-size: 1.5rem;
+        padding: 0 16px;
+      }
+
+      .section-sub {
+        font-size: 0.85rem;
+        padding: 0 16px;
+        margin-bottom: 28px;
+        line-height: 1.6;
+      }
+
+      /* Why section */
+      .why-section {
+        padding: 48px 16px;
+      }
+
+      .why-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .why-card {
+        padding: 20px;
+        gap: 14px;
+        border-radius: 16px;
+      }
+
+      .why-card:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .why-card:active {
+        background: var(--bg-card-hover);
+        border-color: var(--border-glow);
+      }
+
+      .why-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 1.3rem;
+      }
+
+      .why-card h4 {
+        font-size: 0.95rem;
+      }
+
+      .why-card p {
+        font-size: 0.82rem;
+        line-height: 1.6;
+      }
+
+      /* Values */
+      .values-section {
+        padding: 48px 16px;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .value-orb {
+        padding: 24px 14px;
+        border-radius: 16px;
+      }
+
+      .value-orb:hover {
+        transform: none;
+        box-shadow: none;
+      }
+
+      .value-orb .v-emoji {
+        font-size: 2rem;
+      }
+
+      .value-orb h4 {
+        font-size: 0.85rem;
+      }
+
+      .value-orb p {
+        font-size: 0.72rem;
+      }
+
+      /* Pathway: horizontal scroll with snap */
+      .pathway-section {
+        padding: 48px 0;
+      }
+
+      .pathway-track {
+        padding: 0 16px 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+
+      .pathway-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .path-node {
+        min-width: 120px;
+        scroll-snap-align: start;
+      }
+
+      .path-age {
+        font-size: 0.72rem;
+      }
+
+      .path-courses {
+        font-size: 0.68rem;
+      }
+
+      /* ═══ COURSES: VERTICAL STACK FOR MOBILE SWIPING ═══ */
+      .courses-section {
+        padding: 48px 0;
+      }
+
+      .courses-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 0 16px;
+        max-width: 100%;
+      }
+
+      /* Course card mobile optimizations */
+      .course-card {
+        border-radius: 18px;
+        width: 100%;
+        transform: none !important;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      .course-card:hover {
+        transform: none !important;
+        box-shadow: none;
+      }
+
+      .course-card:active {
+        border-color: var(--border-glow);
+        background: var(--bg-card-hover);
+      }
+
+      .course-card.open {
+        box-shadow: 0 8px 32px rgba(12, 209, 215, 0.1), 0 0 40px rgba(109, 24, 150, 0.08);
+      }
+
+      .course-header {
+        padding: 18px 16px;
+        gap: 14px;
+        min-height: 72px;
+      }
+
+      .course-emoji {
+        width: 50px;
+        height: 50px;
+        font-size: 1.4rem;
+        border-radius: 14px;
+      }
+
+      .course-name {
+        font-size: 0.95rem;
+        line-height: 1.3;
+      }
+
+      .course-age-pill {
+        font-size: 0.68rem;
+        padding: 4px 12px;
+        margin-top: 4px;
+      }
+
+      .course-chevron {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+      }
+
+      .course-banner {
+        height: 160px;
+      }
+
+      .course-content {
+        padding: 20px 16px;
+      }
+
+      .course-meta {
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .course-meta-chip {
+        padding: 6px 12px;
+        font-size: 0.7rem;
+      }
+
+      .course-highlight {
+        padding: 14px 16px;
+        font-size: 0.82rem;
+        border-radius: 14px;
+      }
+
+      .course-desc {
+        font-size: 0.85rem;
+        line-height: 1.8;
+      }
+
+      .learn-list {
+        margin: 16px 0 0;
+      }
+
+      .learn-list li {
+        font-size: 0.82rem;
+        padding: 8px 0 8px 28px;
+        line-height: 1.6;
+      }
+
+      [dir="rtl"] .learn-list li {
+        padding: 8px 28px 8px 0;
+      }
+
+      .course-tools {
+        gap: 8px;
+        margin-top: 18px;
+      }
+
+      .tool-tag {
+        padding: 6px 12px;
+        font-size: 0.68rem;
+        border-radius: 10px;
+      }
+
+      .course-outcome {
+        padding: 16px;
+        margin-top: 18px;
+        border-radius: 14px;
+      }
+
+      .course-outcome h5 {
+        font-size: 0.75rem;
+      }
+
+      .course-outcome p {
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+
+      /* Bottom CTA */
+      .cta-finale {
+        padding: 60px 16px;
+      }
+
+      .cta-heading {
+        font-size: 1.8rem;
+      }
+
+      .cta-desc {
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+        line-height: 1.7;
+      }
+
+      /* Footer */
+      .site-footer {
+        padding: 24px 16px;
+      }
+
+      .site-footer p {
+        font-size: 0.72rem;
+      }
+
+      /* Disable hover transforms on touch devices for smoother scrolling */
+      .gallery-item:hover img {
+        transform: none;
+      }
+
+      .value-orb:hover::before {
+        opacity: 0;
+      }
+
+      .counter-card:hover {
+        transform: none;
+      }
+
+      .counter-card:hover::before {
+        opacity: 0;
+      }
+
+      /* Smooth reveal animations — reduce distance on mobile */
+      .reveal {
+        transform: translateY(24px);
+      }
+
+      .reveal-left {
+        transform: translateX(-30px);
+      }
+
+      .reveal-right {
+        transform: translateX(30px);
+      }
+    }
+
+    /* ═══ SMALL PHONES (480px and below) ═══ */
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2.4rem !important;
+      }
+
+      .hero-sub {
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-desc {
+        font-size: 0.9rem;
+      }
+
+      .section-heading {
+        font-size: 1.4rem;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      /* Course cards — even more compact */
+      .courses-grid {
+        gap: 14px;
+        padding: 0 12px;
+      }
+
+      .course-header {
+        padding: 16px 14px;
+      }
+
+      .course-emoji {
+        width: 44px;
+        height: 44px;
+      }
+
+      .course-content {
+        padding: 18px 14px;
+      }
+    }
+
+    /* ═══ VERY SMALL SCREENS (340px and below) ═══ */
+    @media (max-width: 340px) {
+      .navbar {
+        flex-direction: column;
+        gap: 6px;
+        padding: 8px 10px;
+      }
+
+      .hero-title {
+        font-size: 2rem !important;
+      }
+
+      .hero-sub {
+        font-size: 0.72rem;
+        letter-spacing: 1.5px;
+      }
+
+      .hero-desc {
+        font-size: 0.82rem;
+      }
+
+      .section-heading {
+        font-size: 1.2rem;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .counter-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.65rem;
+      }
+
+      /* Courses even smaller */
+      .courses-grid {
+        gap: 12px;
+        padding: 0 10px;
+      }
+
+      .course-header {
+        padding: 14px 12px;
+        gap: 10px;
+      }
+
+      .course-emoji {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+      }
+
+      .course-name {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Aurora background -->
+  <div class="aurora">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Grid overlay -->
+  <div class="grid-overlay"></div>
+
+  <div class="page-wrapper">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        Algorithmics
+        <span id="hero-location">Duhok</span>
+      </div>
+      <div class="lang-pills">
+        <button class="lang-btn active" onclick="switchLang('en')">English</button>
+        <button class="lang-btn" onclick="switchLang('ar')">العربية</button>
+        <button class="lang-btn" onclick="switchLang('ku')">کوردی</button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-section">
+      <div class="summer-pill">
+        <span class="blink"></span>
+        <span id="summer-title">Summer 2026 Courses Now Open!</span>
+      </div>
+
+      <div class="hero-3d-container">
+        <div class="hero-card-3d" id="heroCard3d">
+          <div class="hero-title" id="heroTitle">Algorithmics</div>
+        </div>
+      </div>
+      <div class="hero-sub" id="hero-badge-text">Now Enrolling — Summer 2026</div>
+      <p class="hero-desc" id="hero-desc">
+        Where kids aged <strong>6 to 18</strong> learn to code, create, and build the future — one project at a time.
+      </p>
+      <p class="hero-motivational" id="hero-motivational">"The best investment you can make in your child's future is
+        the skills they learn today."</p>
+
+      <div class="scroll-indicator">
+        <div class="arrow"></div>
+        SCROLL
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-strip reveal">
+      <div class="stat-block">
+        <div class="stat-value" data-count="1100000">1.1M+</div>
+        <div class="stat-label" id="stat1-label">Graduates</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-value" data-count="90">90+</div>
+        <div class="stat-label" id="stat2-label">Countries</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-value" data-count="515">515</div>
+        <div class="stat-label" id="stat3-label">Partners</div>
+      </div>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="marquee-section">
+      <div class="marquee-track">
+        <span class="m-chip">🐍 Python</span>
+        <span class="m-chip">🧩 Scratch</span>
+        <span class="m-chip">🎮 Roblox</span>
+        <span class="m-chip">🎯 Unity</span>
+        <span class="m-chip">🌐 HTML/CSS</span>
+        <span class="m-chip">⚡ JavaScript</span>
+        <span class="m-chip">🤖 AI Tools</span>
+        <span class="m-chip">🎨 Figma</span>
+        <span class="m-chip">🎬 Video Editing</span>
+        <span class="m-chip">🖥️ Digital Skills</span>
+        <span class="m-chip">🏰 Block Coding</span>
+        <span class="m-chip">💡 C#</span>
+        <span class="m-chip">🐍 Python</span>
+        <span class="m-chip">🧩 Scratch</span>
+        <span class="m-chip">🎮 Roblox</span>
+        <span class="m-chip">🎯 Unity</span>
+        <span class="m-chip">🌐 HTML/CSS</span>
+        <span class="m-chip">⚡ JavaScript</span>
+        <span class="m-chip">🤖 AI Tools</span>
+        <span class="m-chip">🎨 Figma</span>
+        <span class="m-chip">🎬 Video Editing</span>
+        <span class="m-chip">🖥️ Digital Skills</span>
+        <span class="m-chip">🏰 Block Coding</span>
+        <span class="m-chip">💡 C#</span>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery-section">
+      <div class="gallery-grid stagger">
+        <div class="gallery-item reveal">
+          <img src="./gallery_kids_coding.png"
+            alt="Kids coding">
+          <div class="g-overlay"><span id="car1">Kids Learning to Code</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="./D985_23_022_1200.jpg" alt="Classroom">
+          <div class="g-overlay"><span id="car2">Interactive Classrooms</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="./gallery_team_projects.png"
+            alt="Team project">
+          <div class="g-overlay"><span id="car3">Team Projects</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="./gallery_presentations.png"
+            alt="Presentation">
+          <div class="g-overlay"><span id="car4">Student Presentations</span></div>
+        </div>
+        <div class="gallery-item reveal">
+          <img src="./gallery_building_games.png"
+            alt="Game development">
+          <div class="g-overlay"><span id="car5">Building Games</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA TOP -->
+    <div class="cta-zone reveal-scale">
+      <a href="https://wa.me/9647515114450?text=Hello%2C%20I%20want%20to%20register%20for%20a%20programming%20course!"
+        class="btn-wa" id="btn-register-main">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        <span id="btn-register-text">Register on WhatsApp</span>
+      </a>
+    </div>
+
+    <!-- TRUST -->
+    <div class="glass-section trust-center reveal">
+      <h3 id="trust-title">Trusted by 1.1M+ Families Worldwide</h3>
+      <p id="trust-desc">Parents across 90+ countries chose Algorithmics because we deliver results — not just lessons.
+        Your child graduates with real skills, real projects, and real confidence.</p>
+      <div class="trust-grid stagger">
+        <div class="trust-item reveal"><span class="t-emoji">📜</span><span id="trust1">Certified Curriculum</span>
+        </div>
+        <div class="trust-item reveal"><span class="t-emoji">🌍</span><span id="trust2">Global Standard</span></div>
+        <div class="trust-item reveal"><span class="t-emoji">🤖</span><span id="trust3">AI-Ready Skills</span></div>
+        <div class="trust-item reveal"><span class="t-emoji">💪</span><span id="trust4">Builds Confidence</span></div>
+      </div>
+    </div>
+
+    <!-- QUOTE 1 -->
+    <div class="glass-section quote-glass reveal">
+      <p id="quote1-text">Every child is one line of code away from discovering their superpower. Programming isn't just
+        about computers — it's about learning to think, create, and solve problems fearlessly.</p>
+      <div class="q-author" id="quote1-author">— Algorithmics Philosophy</div>
+    </div>
+
+    <!-- COUNTERS -->
+    <div class="counter-row stagger">
+      <div class="counter-card reveal">
+        <div class="counter-val">12</div>
+        <div class="counter-lbl" id="cnt1">Unique Courses</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val">6–18</div>
+        <div class="counter-lbl" id="cnt2">Age Range</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val">32–36</div>
+        <div class="counter-lbl" id="cnt3">Lessons per Course</div>
+      </div>
+      <div class="counter-card reveal">
+        <div class="counter-val">45–90</div>
+        <div class="counter-lbl" id="cnt4">Minutes per Session</div>
+      </div>
+    </div>
+
+    <!-- WHY SECTION -->
+    <div class="why-section">
+      <div class="section-heading reveal" id="why-title">Why Parents Choose <span>Algorithmics</span></div>
+      <p class="section-sub reveal" id="why-subtitle">More than just a coding school — we shape future-ready thinkers,
+        creators, and leaders.</p>
+      <div class="why-grid stagger">
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(109,24,150,0.15); border-color: rgba(109,24,150,0.25);">🎓</div>
+          <div>
+            <h4 id="why1-title">Expert Curriculum</h4>
+            <p id="why1-desc">Developed by 40+ professional educators, pedagogues and psychologists — refined over years
+              and tailored for every age group from 6 to 18.</p>
+          </div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(13,238,146,0.1); border-color: rgba(13,238,146,0.2);">👨‍💻
+          </div>
+          <div>
+            <h4 id="why2-title">Industry Instructors</h4>
+            <p id="why2-desc">Learn from certified technical practitioners who bridge the gap between theory and
+              real-world application — not just teachers, but mentors.</p>
+          </div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(255,216,50,0.1); border-color: rgba(255,216,50,0.2);">🖥️</div>
+          <div>
+            <h4 id="why3-title">3-in-1 Learning Platform</h4>
+            <p id="why3-desc">Our IT learning platform is a smart task book, a project environment, and a community of
+              shared interests — all in one seamless experience.</p>
+          </div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(244,76,117,0.1); border-color: rgba(244,76,117,0.2);">🏆</div>
+          <div>
+            <h4 id="why4-title">Real Portfolio Projects</h4>
+            <p id="why4-desc">Students build actual games, websites, apps, and AI models — graduating with a real
+              portfolio of work they can show the world.</p>
+          </div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(12,209,215,0.1); border-color: rgba(12,209,215,0.2);">🧒</div>
+          <div>
+            <h4 id="why5-title">Small Groups, Big Impact</h4>
+            <p id="why5-desc">Classes of 6–12 students ensure personalized attention. Every child gets the support they
+              need to thrive and grow at their own pace.</p>
+          </div>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon" style="background: rgba(109,24,150,0.1); border-color: rgba(109,24,150,0.2);">🌍</div>
+          <div>
+            <h4 id="why6-title">Global Recognition</h4>
+            <p id="why6-desc">Present in 90+ countries with 515 partner schools — your child joins a worldwide community
+              of young innovators and creators.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VALUES -->
+    <div class="values-section">
+      <div class="section-heading reveal" id="values-title">What <span>Kids Gain</span></div>
+      <p class="section-sub reveal" id="values-subtitle">Skills that last a lifetime — far beyond just coding.</p>
+      <div class="values-grid stagger">
+        <div class="value-orb reveal">
+          <span class="v-emoji">🧠</span>
+          <h4 id="v1-title">Logical Thinking</h4>
+          <p id="v1-desc">Problem solving through algorithms and structured reasoning</p>
+        </div>
+        <div class="value-orb reveal">
+          <span class="v-emoji">🤝</span>
+          <h4 id="v2-title">Teamwork</h4>
+          <p id="v2-desc">Collaborate, allocate tasks, and present ideas confidently</p>
+        </div>
+        <div class="value-orb reveal">
+          <span class="v-emoji">🎨</span>
+          <h4 id="v3-title">Creativity</h4>
+          <p id="v3-desc">Design, build, and experiment without fear of mistakes</p>
+        </div>
+        <div class="value-orb reveal">
+          <span class="v-emoji">🎤</span>
+          <h4 id="v4-title">Confidence</h4>
+          <p id="v4-desc">Present projects in front of live audiences fearlessly</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE 2 -->
+    <div class="glass-section quote-glass reveal">
+      <p id="quote2-text">In 10 years, your child won't remember what cartoon they watched this summer. But they'll
+        remember the game they built, the website they launched, and the moment they realized: "I can create anything."
+      </p>
+      <div class="q-author" id="quote2-author">— Why Parents Choose Us</div>
+    </div>
+
+    <!-- PATHWAY -->
+    <div class="pathway-section">
+      <div class="section-heading reveal" id="path-title">Learning <span>Pathway</span></div>
+      <p class="section-sub reveal" id="path-subtitle">A structured journey from first code to career-ready skills.</p>
+      <div class="pathway-track reveal">
+        <div class="path-node">
+          <div class="path-age">Ages 6–7</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path1">The Coding Knight</div>
+        </div>
+        <div class="path-node">
+          <div class="path-age">Ages 7–9</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path2">Digital Literacy</div>
+        </div>
+        <div class="path-node">
+          <div class="path-age">Ages 9–11</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path3">Visual Programming<br>Video Content<br>Graphic Design</div>
+        </div>
+        <div class="path-node">
+          <div class="path-age">Ages 10–12</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path4">Game Design<br>Building Websites</div>
+        </div>
+        <div class="path-node">
+          <div class="path-age">Ages 12–15</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path5">Python Start<br>AI · Unity</div>
+        </div>
+        <div class="path-node">
+          <div class="path-age">Ages 14–18</div>
+          <div class="path-dot"></div>
+          <div class="path-courses" id="path6">Python Pro<br>Front-End Dev</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COURSES -->
+    <div class="courses-section">
+      <div class="section-heading reveal" id="courses-title">Our <span>Courses</span></div>
+      <p class="section-sub reveal" id="courses-subtitle">Tap any course to explore what your child will learn, build,
+        and achieve.</p>
+
+      <div class="courses-grid">
+        <!-- 1. Coding Knight -->
+        <div class="course-card theme-knight reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🏰</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c1-title">The Coding Knight</div>
+              <span class="course-age-pill" id="c1-age">Ages 6–7</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_coding_knight.png"
+              alt="Young kids learning">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 lessons</span><span
+                  class="course-meta-chip">⏱️ 45 min</span><span class="course-meta-chip">👥 Up to 8</span><span
+                  class="course-meta-chip">🏫 Offline only</span></div>
+              <div class="course-highlight" id="c1-highlight">"This is where the magic begins — your little one's very
+                first adventure into the world of logic and creativity."</div>
+              <div class="course-desc" id="c1-desc"><strong>A magical first step into coding!</strong> Through play,
+                stories, and hands-on exploration, your child discovers the thrilling world of programming — building
+                confidence and creativity from day one.<ul class="learn-list">
+                  <li><strong>Logical thinking</strong> — algorithmic sequencing and pattern recognition through games
+                  </li>
+                  <li><strong>Animated films</strong> — create their very own cartoons and interactive stories</li>
+                  <li><strong>Looping algorithms</strong> — understand repetition and coordinates in a playful way</li>
+                  <li><strong>Scratch JR</strong> — code with colorful blocks on tablets designed for small hands</li>
+                  <li><strong>Team creativity</strong> — collaborate with friends on fun group projects</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Scratch JR</span><span
+                  class="tool-tag">Tablets</span><span class="tool-tag">Block Coding</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c1-outcome">Children develop patience, focus, and problem-solving skills — all while having the
+                  time of their lives. They come home excited to show what they built!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Digital Literacy -->
+        <div class="course-card theme-digital reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">💻</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c2-title">Digital Literacy</div>
+              <span class="course-age-pill" id="c2-age">Ages 7–9</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_digital_literacy.png"
+              alt="Kids at computer">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 36 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 Up to 12</span></div>
+              <div class="course-highlight" id="c2-highlight">"Every child needs digital fluency today — this course
+                makes sure yours is ahead of the curve, not behind it."</div>
+              <div class="course-desc" id="c2-desc"><strong>Essential 21st-century computer skills!</strong> Master the
+                digital tools needed for modern learning, school success, and everyday life — all in a safe, guided
+                environment.<ul class="learn-list">
+                  <li><strong>Computer mastery</strong> — typing, keyboard/mouse skills, and file management</li>
+                  <li><strong>Information skills</strong> — distinguish between different types of information online
+                  </li>
+                  <li><strong>Digital creation</strong> — build applications, illustrations, and digital artwork</li>
+                  <li><strong>Communication</strong> — email, Google contacts, and safe online collaboration</li>
+                  <li><strong>Online safety</strong> — internet safety rules, credit card security, and smart habits
+                  </li>
+                  <li><strong>Graduation project</strong> — create a beautiful group photobook to celebrate</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Google Apps</span><span class="tool-tag">File
+                  Systems</span><span class="tool-tag">Digital Art</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c2-outcome">Your child becomes digitally confident and safe online — skills they'll use every
+                  single day in school and beyond. No more worrying about screen time — now it's productive time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Visual Programming -->
+        <div class="course-card theme-visual reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🧩</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c3-title">Visual Programming</div>
+              <span class="course-age-pill" id="c3-age">Ages 9–10</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_visual_programming.png"
+              alt="Visual coding">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 36 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 Up to 12</span></div>
+              <div class="course-highlight" id="c3-highlight">"43% of Algorithmics students worldwide choose Visual
+                Programming — the most popular first step into real coding."</div>
+              <div class="course-desc" id="c3-desc"><strong>From first algorithm to complex projects!</strong> Master
+                programming logic through the intuitive block-based language Scratch — the world's most popular coding
+                platform for kids.<ul class="learn-list">
+                  <li><strong>Core programming</strong> — algorithms, variables, loops, conditions, and error correction
+                  </li>
+                  <li><strong>Build games & cartoons</strong> — create increasingly complex projects in Scratch</li>
+                  <li><strong>Graphic design basics</strong> — apply principles of design and vector graphics</li>
+                  <li><strong>Creative problem-solving</strong> — experiment, iterate, and find elegant solutions</li>
+                  <li><strong>Public speaking</strong> — present finished projects to a live audience with confidence
+                  </li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Scratch</span><span class="tool-tag">Vector
+                  Graphics</span><span class="tool-tag">UI/UX Basics</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c3-outcome">Kids go from "I want to play games" to "I want to make games." They develop
+                  computational thinking that helps them excel in math, science, and creative subjects.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Video Content Makers -->
+        <div class="course-card theme-video reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🎬</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c4-title">Video Content Makers</div>
+              <span class="course-age-pill" id="c4-age">Ages 9–11</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_video_content.png"
+              alt="Video creation">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 24–32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c4-highlight">"Instead of just watching YouTube, your child will learn
+                to create it — professionally, safely, and creatively."</div>
+              <div class="course-desc" id="c4-desc"><strong>Become a content creator!</strong> Learn professional video
+                production, editing, and channel growth strategies — turning screen time into creative skill-building.
+                <ul class="learn-list">
+                  <li><strong>Film & edit</strong> — shoot, process, add voiceover and effects to professional videos
+                  </li>
+                  <li><strong>Channel building</strong> — develop a blog concept, create and brand a channel</li>
+                  <li><strong>Content strategy</strong> — study popular genres, scripting, and storytelling principles
+                  </li>
+                  <li><strong>Audience growth</strong> — gain first subscribers and learn ethical monetization</li>
+                  <li><strong>Digital safety</strong> — online safety rules every young creator must know</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Video Editing</span><span
+                  class="tool-tag">YouTube</span><span class="tool-tag">TikTok</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c4-outcome">Screen time becomes meaningful creation time. Kids learn storytelling, communication,
+                  and digital responsibility — skills that matter in every career path.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Graphic Design -->
+        <div class="course-card theme-graphic reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🎨</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c5-title">Graphic Design</div>
+              <span class="course-age-pill" id="c5-age">Ages 9–14</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_graphic_design.png" alt="Graphic design">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 24–32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c5-highlight">"Design is the language of the future. Your child learns
+                to speak it fluently — with the same tools professionals use."</div>
+              <div class="course-desc" id="c5-desc"><strong>Unleash creativity through visual communication!</strong>
+                Master the tools and principles of professional graphic design using industry-standard software.<ul
+                  class="learn-list">
+                  <li><strong>Composition</strong> — arrange visual elements using professional layout principles</li>
+                  <li><strong>Color theory</strong> — RGB model, saturation, tones, palettes, and emotional impact</li>
+                  <li><strong>Light & space</strong> — manage shadows, depth, volume, and visual hierarchy</li>
+                  <li><strong>User attention</strong> — control how viewers interact with and understand design</li>
+                  <li><strong>Portfolio building</strong> — create stunning designs they can proudly share</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Figma</span><span class="tool-tag">Color
+                  Theory</span><span class="tool-tag">Composition</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c5-outcome">Children develop a sophisticated eye for aesthetics and communication that benefits
+                  everything from school presentations to future careers in design, marketing, and tech.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Game Design -->
+        <div class="course-card theme-gamedesign reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🎮</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c6-title">Game Design</div>
+              <span class="course-age-pill" id="c6-age">Ages 10–11</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_game_design.png" alt="Game design">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c6-highlight">"31% of Algorithmics students choose Game Design — turning
+                their gaming passion into real development skills."</div>
+              <div class="course-desc" id="c6-desc"><strong>Enter the world of game development!</strong> Create, code,
+                and publish real games on the Roblox platform — the same platform with 200M+ monthly active players.<ul
+                  class="learn-list">
+                  <li><strong>Logic puzzles</strong> — solve code challenges and computational thinking tasks</li>
+                  <li><strong>Game narratives</strong> — develop compelling storylines and game strategies</li>
+                  <li><strong>Player psychology</strong> — design for different player types and engagement patterns
+                  </li>
+                  <li><strong>Roblox Studio</strong> — create fully playable games with Lua scripting language</li>
+                  <li><strong>Launch & promote</strong> — publish your game and attract real players worldwide</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Roblox Studio</span><span
+                  class="tool-tag">Lua</span><span class="tool-tag">Game Mechanics</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c6-outcome">Your child goes from playing games to building them. They learn programming, design,
+                  and entrepreneurship — and end up with a published game they can share with friends.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Building Websites -->
+        <div class="course-card theme-websites reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🌐</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c7-title">Building Websites</div>
+              <span class="course-age-pill" id="c7-age">Ages 11–12</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_websites.png"
+              alt="Web development">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c7-highlight">"A website is a child's first business card to the world.
+                This course gives them the skills to build it themselves."</div>
+              <div class="course-desc" id="c7-desc"><strong>Build the web from scratch!</strong> A competitive edge in
+                the global market starts right here — your child learns to create real, live websites.<ul
+                  class="learn-list">
+                  <li><strong>Concept & plan</strong> — brainstorm website ideas and design their structure</li>
+                  <li><strong>Design in Figma</strong> — create professional mockups before building</li>
+                  <li><strong>HTML & CSS code</strong> — write real code and publish on GitHub Pages</li>
+                  <li><strong>UX/UI principles</strong> — create interfaces that users love to interact with</li>
+                  <li><strong>Mobile responsive</strong> — adapt sites for phones, tablets, and desktops</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">HTML/CSS</span><span class="tool-tag">Figma</span><span
+                  class="tool-tag">Tilda</span><span class="tool-tag">GitHub Pages</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c7-outcome">Your child builds a real website that lives on the internet — something tangible they
+                  created themselves. It's the beginning of a digital portfolio that grows with them.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Python Start -->
+        <div class="course-card theme-python reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🐍</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c8-title">Python Start</div>
+              <span class="course-age-pill" id="c8-age">Ages 12–13</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_python_start.png" alt="Python coding">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 36 + 32 lessons (2 years)</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c8-highlight">"45% of Algorithmics teenagers choose Python Start — the
+                world's #1 programming language and the gateway to every tech career."</div>
+              <div class="course-desc" id="c8-desc"><strong>A solid start in real programming!</strong> Learn Python —
+                the most in-demand language used by Google, Netflix, NASA, and every major tech company in the world.<ul
+                  class="learn-list">
+                  <li><strong>Algorithms & OOP</strong> — master the foundations of object-oriented programming</li>
+                  <li><strong>PyGame projects</strong> — build interactive graphical games with real physics</li>
+                  <li><strong>Turtle graphics</strong> — create visual art and animations with code</li>
+                  <li><strong>Data & debugging</strong> — work with data structures, read code, and fix bugs</li>
+                  <li><strong>Interface design</strong> — build graphical UIs and automate file operations</li>
+                  <li><strong>Team presentations</strong> — collaborate and present projects to live audiences</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Python</span><span class="tool-tag">PyGame</span><span
+                  class="tool-tag">Turtle</span><span class="tool-tag">PyQT</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c8-outcome">Your teenager writes real Python code — the same language used in AI, data science,
+                  and web development. They gain skills that directly translate to university studies and future
+                  careers.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. Artificial Intelligence -->
+        <div class="course-card theme-ai reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🤖</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c9-title">Artificial Intelligence</div>
+              <span class="course-age-pill" id="c9-age">Ages 12–15</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_ai.png"
+              alt="AI technology">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 36 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 Up to 15</span></div>
+              <div class="course-highlight" id="c9-highlight">"AI is reshaping every industry. This course ensures your
+                child isn't just a user of AI — but someone who understands and creates with it."</div>
+              <div class="course-desc" id="c9-desc"><strong>Shape the future with AI!</strong> Create and edit text,
+                images, music, videos, and code using cutting-edge artificial intelligence tools — the skills employers
+                will demand in 5 years.<ul class="learn-list">
+                  <li><strong>How AI works</strong> — understand generative AI, neural networks, and machine learning
+                  </li>
+                  <li><strong>Master AI tools</strong> — ChatGPT, image generators, video AI, and 3D modeling</li>
+                  <li><strong>AI + coding</strong> — learn HTML, CSS, and AI-assisted coding workflows</li>
+                  <li><strong>Project management</strong> — develop teamwork and agile collaboration skills</li>
+                  <li><strong>AI presentations</strong> — create compelling AI-powered presentations and pitches</li>
+                  <li><strong>Final project</strong> — complete a comprehensive project using multiple AI technologies
+                  </li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">ChatGPT</span><span class="tool-tag">AI Image
+                  Gen</span><span class="tool-tag">3D Modeling</span><span class="tool-tag">HTML/CSS</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c9-outcome">Your child becomes AI-literate — understanding the technology that's transforming the
+                  world. They learn to use AI responsibly and creatively, giving them an incredible head start.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Unity Game Development -->
+        <div class="course-card theme-unity reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">🎯</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c10-title">Unity Game Development</div>
+              <span class="course-age-pill" id="c10-age">Ages 12–16</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner" src="./unity_game_dev.png" alt="Game development">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 Up to 12</span><span
+                  class="course-meta-chip">✅ No prior coding needed</span></div>
+              <div class="course-highlight" id="c10-highlight">"Unity powers 72% of the world's top mobile games. Your
+                child learns the same engine used by professional studios."</div>
+              <div class="course-desc" id="c10-desc"><strong>Create 3D worlds!</strong> Unity is the industry-standard
+                game engine behind thousands of professional games — and your child will master it.<ul
+                  class="learn-list">
+                  <li><strong>Unity engine</strong> — use professional tools to bring game ideas to life</li>
+                  <li><strong>Atmospheric games</strong> — create worlds with physics, lighting, and particle effects
+                  </li>
+                  <li><strong>Level design</strong> — design game levels like a professional level designer</li>
+                  <li><strong>C# programming</strong> — write scripts, variables, data types, and game logic</li>
+                  <li><strong>Team projects</strong> — plan, collaborate, and present polished final games</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Unity</span><span class="tool-tag">C#</span><span
+                  class="tool-tag">3D Modeling</span><span class="tool-tag">Visual Studio</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c10-outcome">Your teen creates stunning 3D games and learns C# — a language used in enterprise
+                  software worldwide. It's the perfect launchpad for a career in game development or software
+                  engineering.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Python Pro -->
+        <div class="course-card theme-pythonpro reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji"><img src="./python.svg" alt=""></div>
+            <div class="course-header-info">
+              <div class="course-name" id="c11-title">Python Pro</div>
+              <span class="course-age-pill" id="c11-age">Ages 14–17</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_python_pro.png"
+              alt="Advanced coding">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 + 32 lessons (2 years)</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 6 online / 12
+                  offline</span></div>
+              <div class="course-highlight" id="c11-highlight">"This is the course that turns teenagers into developers.
+                Two years of intensive, real-world programming that builds an actual portfolio."</div>
+              <div class="course-desc" id="c11-desc"><strong>From beginner to professional!</strong> Build a real
+                developer portfolio spanning game development, web apps, mobile apps, and data science — the complete
+                tech toolkit.<ul class="learn-list">
+                  <li><strong>Advanced Python</strong> — functions, classes, modules, and professional code architecture
+                  </li>
+                  <li><strong>PC games & apps</strong> — create interactive games and desktop applications</li>
+                  <li><strong>Databases</strong> — work with PyGame, PyQT, and real database systems</li>
+                  <li><strong>3D games & web</strong> — program 3D games and build websites with Django</li>
+                  <li><strong>Data science</strong> — Data Mining and machine learning algorithms with Pandas</li>
+                  <li><strong>Mobile apps</strong> — develop cross-platform mobile applications with Kivy</li>
+                  <li><strong>Agile methodology</strong> — apply Scrum and professional team workflows</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">Python</span><span class="tool-tag">Django</span><span
+                  class="tool-tag">Flask</span><span class="tool-tag">Pandas</span><span
+                  class="tool-tag">sklearn</span><span class="tool-tag">Kivy</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c11-outcome">Your teenager graduates with a real developer portfolio — games, websites, mobile
+                  apps, and data projects. They're ready for university CS programs or even freelance work before they
+                  graduate high school.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. Front-End Development -->
+        <div class="course-card theme-frontend reveal" onclick="toggleCourse(this)">
+          <div class="course-header">
+            <div class="course-emoji">⚡</div>
+            <div class="course-header-info">
+              <div class="course-name" id="c12-title">Front-End Development</div>
+              <span class="course-age-pill" id="c12-age">Ages 15–18</span>
+            </div>
+            <div class="course-chevron"><svg viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z" />
+              </svg></div>
+          </div>
+          <div class="course-body">
+            <img class="course-banner"
+              src="./course_frontend.png"
+              alt="Web development">
+            <div class="course-content">
+              <div class="course-meta"><span class="course-meta-chip">📅 32 lessons</span><span
+                  class="course-meta-chip">⏱️ 90 min</span><span class="course-meta-chip">👥 10 online / 12
+                  offline</span><span class="course-meta-chip">⚠️ Requires coding experience</span></div>
+              <div class="course-highlight" id="c12-highlight">"Front-End developers are among the highest-paid
+                entry-level tech professionals. This course gives your teen a serious head start."</div>
+              <div class="course-desc" id="c12-desc"><strong>Build real web applications!</strong> Create, style, and
+                deploy interactive web apps from scratch — the exact skills tech companies are hiring for right now.<ul
+                  class="learn-list">
+                  <li><strong>App architecture</strong> — concept and design web applications in professional detail
+                  </li>
+                  <li><strong>HTML & CSS mastery</strong> — create beautiful, responsive visual interfaces</li>
+                  <li><strong>JavaScript power</strong> — make applications fully interactive and dynamic</li>
+                  <li><strong>Deployment</strong> — launch live projects on real servers for the world to see</li>
+                  <li><strong>Career-ready</strong> — build the exact skillset that tech companies hire for</li>
+                </ul>
+              </div>
+              <div class="course-tools"><span class="tool-tag">HTML</span><span class="tool-tag">CSS</span><span
+                  class="tool-tag">JavaScript</span><span class="tool-tag">VS Code</span><span
+                  class="tool-tag">GitHub</span></div>
+              <div class="course-outcome">
+                <h5>What parents love</h5>
+                <p id="c12-outcome">Your teen builds professional web applications and deploys them live. They graduate
+                  with marketable skills — some students even land freelance clients while still in the course.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM CTA -->
+    <div class="cta-finale">
+      <div class="cta-heading reveal" id="cta-title">Ready to <span>Start?</span></div>
+      <p class="cta-desc reveal" id="cta-desc">Book a free introductory lesson and discover which course is perfect for
+        your child. Join 1.1 million families who already made the best decision for their child's future.</p>
+      <div class="cta-zone reveal-scale" style="padding: 0;">
+        <a href="https://wa.me/9647515114450?text=Hello%2C%20I%20want%20to%20register%20for%20a%20programming%20course!"
+          class="btn-wa" id="btn-register-bottom">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          <span id="btn-register-text-bottom">Register Now on WhatsApp</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <p>&copy; 2026 <a href="#">Algorithmics Duhok</a> — International School of Programming</p>
+    </footer>
+  </div>
+
+  <script>
+    // ═══ CUSTOM CURSOR ═══
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      dot.style.left = mouseX - 4 + 'px';
+      dot.style.top = mouseY - 4 + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.15;
+      ringY += (mouseY - ringY) * 0.15;
+      ring.style.left = ringX - 20 + 'px';
+      ring.style.top = ringY - 20 + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .course-card, .gallery-item, .why-card, .value-orb, .trust-item, .counter-card, .path-node').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+    });
+
+    // ═══ PARTICLES ═══
+    const isMobile = window.innerWidth <= 768;
+    const particlesEl = document.getElementById('particles');
+    const particleCount = isMobile ? 12 : 50;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (8 + Math.random() * 20) + 's';
+      p.style.animationDelay = Math.random() * 15 + 's';
+      p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+      p.style.opacity = 0.2 + Math.random() * 0.5;
+      particlesEl.appendChild(p);
+    }
+
+    // ═══ HERO 3D TILT ═══
+    const heroTitle = document.getElementById('heroTitle');
+    const letters = heroTitle.textContent.split('');
+    heroTitle.innerHTML = letters.map((l, i) =>
+      l === ' ' ? ' ' : `<span class="letter" style="animation-delay:${i * 0.08}s">${l}</span>`
+    ).join('');
+
+    // ═══ DESKTOP-ONLY INTERACTIONS ═══
+    if (!isMobile) {
+      const hero3d = document.getElementById('heroCard3d');
+      document.querySelector('.hero-section').addEventListener('mousemove', e => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        hero3d.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+      });
+      document.querySelector('.hero-section').addEventListener('mouseleave', () => {
+        hero3d.style.transform = 'rotateY(0) rotateX(0)';
+      });
+
+      // Card mouse tracking (spotlight effect)
+      document.querySelectorAll('.why-card, .course-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mouse-x', ((e.clientX - rect.left) / rect.width * 100) + '%');
+          card.style.setProperty('--mouse-y', ((e.clientY - rect.top) / rect.height * 100) + '%');
+        });
+      });
+
+      // Gallery 3D tilt
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        item.addEventListener('mousemove', e => {
+          const rect = item.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          item.style.transform = `translateY(-8px) rotateX(${-y * 12}deg) rotateY(${x * 12}deg)`;
+        });
+        item.addEventListener('mouseleave', () => {
+          item.style.transform = '';
+        });
+      });
+    }
+
+    // ═══ SCROLL REVEAL ═══
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+    // ═══ COUNTER ANIMATION ═══
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const end = el.textContent;
+          if (el.dataset.animated) return;
+          el.dataset.animated = '1';
+          // Only animate pure numbers
+          const num = parseInt(end.replace(/[^0-9]/g, ''));
+          if (!isNaN(num) && num > 0 && num <= 1200000) {
+            let start = 0;
+            const duration = 2000;
+            const startTime = performance.now();
+            const suffix = end.replace(/[0-9,.]/g, '');
+            function tick(now) {
+              const progress = Math.min((now - startTime) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = Math.floor(eased * num);
+              if (num >= 1000000) el.textContent = (current / 1000000).toFixed(1) + 'M+';
+              else if (num >= 1000) el.textContent = current.toLocaleString() + suffix;
+              else el.textContent = current + suffix;
+              if (progress < 1) requestAnimationFrame(tick);
+              else el.textContent = end;
+            }
+            requestAnimationFrame(tick);
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.stat-value, .counter-val').forEach(el => counterObserver.observe(el));
+
+    // ═══ COURSE TOGGLE ═══
+    function toggleCourse(card) {
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.course-card').forEach(c => c.classList.remove('open'));
+      if (!wasOpen) {
+        card.classList.add('open');
+        const isMobileView = window.innerWidth <= 768;
+        setTimeout(() => {
+          if (isMobileView) {
+            // On mobile, scroll so the card header is near the top with navbar offset
+            const navbarHeight = document.querySelector('.navbar').offsetHeight || 60;
+            const cardTop = card.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 12;
+            window.scrollTo({ top: cardTop, behavior: 'smooth' });
+          } else {
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }, 150);
+      }
+    }
+
+    // ═══ LANGUAGE SWITCHING ═══
+    function switchLang(lang) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      const dir = (lang === 'ar' || lang === 'ku') ? 'rtl' : 'ltr';
+      document.documentElement.setAttribute('dir', dir);
+      document.documentElement.setAttribute('lang', lang);
+      if (lang === 'ar') {
+        applyTranslations(arTranslations);
+        updateWhatsApp("مرحباً، أريد التسجيل في إحدى دورات الخوارزميات!");
+      } else if (lang === 'ku') {
+        applyTranslations(kuTranslations);
+        updateWhatsApp("سلاڤ، ئەز دڤێم ناڤێ خۆ بو خولەکا پرۆگرامکرنێ تۆمار بکەم!");
+      } else {
+        applyTranslations(enTranslations);
+        updateWhatsApp("Hello, I want to register for a programming course!");
+      }
+    }
+
+    function applyTranslations(t) {
+      for (const [id, val] of Object.entries(t)) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = val;
+      }
+      // Re-animate hero letters
+      const ht = document.getElementById('heroTitle');
+      if (ht) {
+        const txt = ht.textContent;
+        ht.innerHTML = txt.split('').map((l, i) =>
+          l === ' ' ? ' ' : `<span class="letter" style="animation-delay:${i * 0.08}s">${l}</span>`
+        ).join('');
+      }
+    }
+
+    function updateWhatsApp(msg) {
+      const encoded = encodeURIComponent(msg);
+      const url = `https://wa.me/9647515114450?text=${encoded}`;
+      document.getElementById('btn-register-main').href = url;
+      document.getElementById('btn-register-bottom').href = url;
+    }
+
+    const enTranslations = {
+      "summer-title": "Summer 2026 Courses Now Open!",
+      "hero-badge-text": "Now Enrolling — Summer 2026",
+      "hero-desc": 'Where kids aged <strong>6 to 18</strong> learn to code, create, and build the future — one project at a time.',
+      "hero-motivational": '"The best investment you can make in your child\'s future is the skills they learn today."',
+      "stat1-label": "Graduates", "stat2-label": "Countries", "stat3-label": "Partners",
+      "btn-register-text": "Register on WhatsApp",
+      "btn-register-text-bottom": "Register Now on WhatsApp",
+      "trust-title": "Trusted by 1.1M+ Families Worldwide",
+      "trust-desc": "Parents across 90+ countries chose Algorithmics because we deliver results — not just lessons. Your child graduates with real skills, real projects, and real confidence.",
+      "trust1": "Certified Curriculum", "trust2": "Global Standard", "trust3": "AI-Ready Skills", "trust4": "Builds Confidence",
+      "quote1-text": "Every child is one line of code away from discovering their superpower. Programming isn't just about computers — it's about learning to think, create, and solve problems fearlessly.",
+      "quote1-author": "— Algorithmics Philosophy",
+      "cnt1": "Unique Courses", "cnt2": "Age Range", "cnt3": "Lessons per Course", "cnt4": "Minutes per Session",
+      "why-title": "Why Parents Choose <span>Algorithmics</span>",
+      "why-subtitle": "More than just a coding school — we shape future-ready thinkers, creators, and leaders.",
+      "why1-title": "Expert Curriculum", "why1-desc": "Developed by 40+ professional educators, pedagogues and psychologists — refined over years and tailored for every age group from 6 to 18.",
+      "why2-title": "Industry Instructors", "why2-desc": "Learn from certified technical practitioners who bridge the gap between theory and real-world application — not just teachers, but mentors.",
+      "why3-title": "3-in-1 Learning Platform", "why3-desc": "Our IT learning platform is a smart task book, a project environment, and a community of shared interests — all in one seamless experience.",
+      "why4-title": "Real Portfolio Projects", "why4-desc": "Students build actual games, websites, apps, and AI models — graduating with a real portfolio of work they can show the world.",
+      "why5-title": "Small Groups, Big Impact", "why5-desc": "Classes of 6–12 students ensure personalized attention. Every child gets the support they need to thrive and grow at their own pace.",
+      "why6-title": "Global Recognition", "why6-desc": "Present in 90+ countries with 515 partner schools — your child joins a worldwide community of young innovators and creators.",
+      "values-title": "What <span>Kids Gain</span>",
+      "values-subtitle": "Skills that last a lifetime — far beyond just coding.",
+      "v1-title": "Logical Thinking", "v1-desc": "Problem solving through algorithms and structured reasoning",
+      "v2-title": "Teamwork", "v2-desc": "Collaborate, allocate tasks, and present ideas confidently",
+      "v3-title": "Creativity", "v3-desc": "Design, build, and experiment without fear of mistakes",
+      "v4-title": "Confidence", "v4-desc": "Present projects in front of live audiences fearlessly",
+      "quote2-text": 'In 10 years, your child won\'t remember what cartoon they watched this summer. But they\'ll remember the game they built, the website they launched, and the moment they realized: "I can create anything."',
+      "quote2-author": "— Why Parents Choose Us",
+      "path-title": "Learning <span>Pathway</span>",
+      "path-subtitle": "A structured journey from first code to career-ready skills.",
+      "courses-title": "Our <span>Courses</span>",
+      "courses-subtitle": "Tap any course to explore what your child will learn, build, and achieve.",
+      "c1-title": "The Coding Knight", "c1-age": "Ages 6–7",
+      "c1-highlight": '"This is where the magic begins — your little one\'s very first adventure into the world of logic and creativity."',
+      "c1-desc": '<strong>A magical first step into coding!</strong> Through play, stories, and hands-on exploration, your child discovers the thrilling world of programming — building confidence and creativity from day one.<ul class="learn-list"><li><strong>Logical thinking</strong> — algorithmic sequencing and pattern recognition through games</li><li><strong>Animated films</strong> — create their very own cartoons and interactive stories</li><li><strong>Looping algorithms</strong> — understand repetition and coordinates in a playful way</li><li><strong>Scratch JR</strong> — code with colorful blocks on tablets designed for small hands</li><li><strong>Team creativity</strong> — collaborate with friends on fun group projects</li></ul>',
+      "c1-outcome": "Children develop patience, focus, and problem-solving skills — all while having the time of their lives. They come home excited to show what they built!",
+      "c2-title": "Digital Literacy", "c2-age": "Ages 7–9",
+      "c2-highlight": '"Every child needs digital fluency today — this course makes sure yours is ahead of the curve, not behind it."',
+      "c2-desc": '<strong>Essential 21st-century computer skills!</strong> Master the digital tools needed for modern learning, school success, and everyday life — all in a safe, guided environment.<ul class="learn-list"><li><strong>Computer mastery</strong> — typing, keyboard/mouse skills, and file management</li><li><strong>Information skills</strong> — distinguish between different types of information online</li><li><strong>Digital creation</strong> — build applications, illustrations, and digital artwork</li><li><strong>Communication</strong> — email, Google contacts, and safe online collaboration</li><li><strong>Online safety</strong> — internet safety rules, credit card security, and smart habits</li><li><strong>Graduation project</strong> — create a beautiful group photobook to celebrate</li></ul>',
+      "c2-outcome": "Your child becomes digitally confident and safe online — skills they'll use every single day in school and beyond. No more worrying about screen time — now it's productive time.",
+      "c3-title": "Visual Programming", "c3-age": "Ages 9–10",
+      "c3-highlight": '"43% of Algorithmics students worldwide choose Visual Programming — the most popular first step into real coding."',
+      "c3-desc": '<strong>From first algorithm to complex projects!</strong> Master programming logic through the intuitive block-based language Scratch — the world\'s most popular coding platform for kids.<ul class="learn-list"><li><strong>Core programming</strong> — algorithms, variables, loops, conditions, and error correction</li><li><strong>Build games & cartoons</strong> — create increasingly complex projects in Scratch</li><li><strong>Graphic design basics</strong> — apply principles of design and vector graphics</li><li><strong>Creative problem-solving</strong> — experiment, iterate, and find elegant solutions</li><li><strong>Public speaking</strong> — present finished projects to a live audience with confidence</li></ul>',
+      "c3-outcome": 'Kids go from "I want to play games" to "I want to make games." They develop computational thinking that helps them excel in math, science, and creative subjects.',
+      "c4-title": "Video Content Makers", "c4-age": "Ages 9–11",
+      "c4-highlight": '"Instead of just watching YouTube, your child will learn to create it — professionally, safely, and creatively."',
+      "c4-desc": '<strong>Become a content creator!</strong> Learn professional video production, editing, and channel growth strategies — turning screen time into creative skill-building.<ul class="learn-list"><li><strong>Film & edit</strong> — shoot, process, add voiceover and effects to professional videos</li><li><strong>Channel building</strong> — develop a blog concept, create and brand a channel</li><li><strong>Content strategy</strong> — study popular genres, scripting, and storytelling principles</li><li><strong>Audience growth</strong> — gain first subscribers and learn ethical monetization</li><li><strong>Digital safety</strong> — online safety rules every young creator must know</li></ul>',
+      "c4-outcome": "Screen time becomes meaningful creation time. Kids learn storytelling, communication, and digital responsibility — skills that matter in every career path.",
+      "c5-title": "Graphic Design", "c5-age": "Ages 9–14",
+      "c5-highlight": '"Design is the language of the future. Your child learns to speak it fluently — with the same tools professionals use."',
+      "c5-desc": '<strong>Unleash creativity through visual communication!</strong> Master the tools and principles of professional graphic design using industry-standard software.<ul class="learn-list"><li><strong>Composition</strong> — arrange visual elements using professional layout principles</li><li><strong>Color theory</strong> — RGB model, saturation, tones, palettes, and emotional impact</li><li><strong>Light & space</strong> — manage shadows, depth, volume, and visual hierarchy</li><li><strong>User attention</strong> — control how viewers interact with and understand design</li><li><strong>Portfolio building</strong> — create stunning designs they can proudly share</li></ul>',
+      "c5-outcome": "Children develop a sophisticated eye for aesthetics and communication that benefits everything from school presentations to future careers in design, marketing, and tech.",
+      "c6-title": "Game Design", "c6-age": "Ages 10–11",
+      "c6-highlight": '"31% of Algorithmics students choose Game Design — turning their gaming passion into real development skills."',
+      "c6-desc": '<strong>Enter the world of game development!</strong> Create, code, and publish real games on the Roblox platform — the same platform with 200M+ monthly active players.<ul class="learn-list"><li><strong>Logic puzzles</strong> — solve code challenges and computational thinking tasks</li><li><strong>Game narratives</strong> — develop compelling storylines and game strategies</li><li><strong>Player psychology</strong> — design for different player types and engagement patterns</li><li><strong>Roblox Studio</strong> — create fully playable games with Lua scripting language</li><li><strong>Launch & promote</strong> — publish your game and attract real players worldwide</li></ul>',
+      "c6-outcome": "Your child goes from playing games to building them. They learn programming, design, and entrepreneurship — and end up with a published game they can share with friends.",
+      "c7-title": "Building Websites", "c7-age": "Ages 11–12",
+      "c7-highlight": '"A website is a child\'s first business card to the world. This course gives them the skills to build it themselves."',
+      "c7-desc": '<strong>Build the web from scratch!</strong> A competitive edge in the global market starts right here — your child learns to create real, live websites.<ul class="learn-list"><li><strong>Concept & plan</strong> — brainstorm website ideas and design their structure</li><li><strong>Design in Figma</strong> — create professional mockups before building</li><li><strong>HTML & CSS code</strong> — write real code and publish on GitHub Pages</li><li><strong>UX/UI principles</strong> — create interfaces that users love to interact with</li><li><strong>Mobile responsive</strong> — adapt sites for phones, tablets, and desktops</li></ul>',
+      "c7-outcome": "Your child builds a real website that lives on the internet — something tangible they created themselves. It's the beginning of a digital portfolio that grows with them.",
+      "c8-title": "Python Start", "c8-age": "Ages 12–13",
+      "c8-highlight": '"45% of Algorithmics teenagers choose Python Start — the world\'s #1 programming language and the gateway to every tech career."',
+      "c8-desc": '<strong>A solid start in real programming!</strong> Learn Python — the most in-demand language used by Google, Netflix, NASA, and every major tech company in the world.<ul class="learn-list"><li><strong>Algorithms & OOP</strong> — master the foundations of object-oriented programming</li><li><strong>PyGame projects</strong> — build interactive graphical games with real physics</li><li><strong>Turtle graphics</strong> — create visual art and animations with code</li><li><strong>Data & debugging</strong> — work with data structures, read code, and fix bugs</li><li><strong>Interface design</strong> — build graphical UIs and automate file operations</li><li><strong>Team presentations</strong> — collaborate and present projects to live audiences</li></ul>',
+      "c8-outcome": "Your teenager writes real Python code — the same language used in AI, data science, and web development. They gain skills that directly translate to university studies and future careers.",
+      "c9-title": "Artificial Intelligence", "c9-age": "Ages 12–15",
+      "c9-highlight": '"AI is reshaping every industry. This course ensures your child isn\'t just a user of AI — but someone who understands and creates with it."',
+      "c9-desc": '<strong>Shape the future with AI!</strong> Create and edit text, images, music, videos, and code using cutting-edge artificial intelligence tools — the skills employers will demand in 5 years.<ul class="learn-list"><li><strong>How AI works</strong> — understand generative AI, neural networks, and machine learning</li><li><strong>Master AI tools</strong> — ChatGPT, image generators, video AI, and 3D modeling</li><li><strong>AI + coding</strong> — learn HTML, CSS, and AI-assisted coding workflows</li><li><strong>Project management</strong> — develop teamwork and agile collaboration skills</li><li><strong>AI presentations</strong> — create compelling AI-powered presentations and pitches</li><li><strong>Final project</strong> — complete a comprehensive project using multiple AI technologies</li></ul>',
+      "c9-outcome": "Your child becomes AI-literate — understanding the technology that's transforming the world. They learn to use AI responsibly and creatively, giving them an incredible head start.",
+      "c10-title": "Unity Game Development", "c10-age": "Ages 12–16",
+      "c10-highlight": '"Unity powers 72% of the world\'s top mobile games. Your child learns the same engine used by professional studios."',
+      "c10-desc": '<strong>Create 3D worlds!</strong> Unity is the industry-standard game engine behind thousands of professional games — and your child will master it.<ul class="learn-list"><li><strong>Unity engine</strong> — use professional tools to bring game ideas to life</li><li><strong>Atmospheric games</strong> — create worlds with physics, lighting, and particle effects</li><li><strong>Level design</strong> — design game levels like a professional level designer</li><li><strong>C# programming</strong> — write scripts, variables, data types, and game logic</li><li><strong>Team projects</strong> — plan, collaborate, and present polished final games</li></ul>',
+      "c10-outcome": "Your teen creates stunning 3D games and learns C# — a language used in enterprise software worldwide. It's the perfect launchpad for a career in game development or software engineering.",
+      "c11-title": "Python Pro", "c11-age": "Ages 14–17",
+      "c11-highlight": '"This is the course that turns teenagers into developers. Two years of intensive, real-world programming that builds an actual portfolio."',
+      "c11-desc": '<strong>From beginner to professional!</strong> Build a real developer portfolio spanning game development, web apps, mobile apps, and data science — the complete tech toolkit.<ul class="learn-list"><li><strong>Advanced Python</strong> — functions, classes, modules, and professional code architecture</li><li><strong>PC games & apps</strong> — create interactive games and desktop applications</li><li><strong>Databases</strong> — work with PyGame, PyQT, and real database systems</li><li><strong>3D games & web</strong> — program 3D games and build websites with Django</li><li><strong>Data science</strong> — Data Mining and machine learning algorithms with Pandas</li><li><strong>Mobile apps</strong> — develop cross-platform mobile applications with Kivy</li><li><strong>Agile methodology</strong> — apply Scrum and professional team workflows</li></ul>',
+      "c11-outcome": "Your teenager graduates with a real developer portfolio — games, websites, mobile apps, and data projects. They're ready for university CS programs or even freelance work before they graduate high school.",
+      "c12-title": "Front-End Development", "c12-age": "Ages 15–18",
+      "c12-highlight": '"Front-End developers are among the highest-paid entry-level tech professionals. This course gives your teen a serious head start."',
+      "c12-desc": '<strong>Build real web applications!</strong> Create, style, and deploy interactive web apps from scratch — the exact skills tech companies are hiring for right now.<ul class="learn-list"><li><strong>App architecture</strong> — concept and design web applications in professional detail</li><li><strong>HTML & CSS mastery</strong> — create beautiful, responsive visual interfaces</li><li><strong>JavaScript power</strong> — make applications fully interactive and dynamic</li><li><strong>Deployment</strong> — launch live projects on real servers for the world to see</li><li><strong>Career-ready</strong> — build the exact skillset that tech companies hire for</li></ul>',
+      "c12-outcome": "Your teen builds professional web applications and deploys them live. They graduate with marketable skills — some students even land freelance clients while still in the course.",
+      "cta-title": "Ready to <span>Start?</span>",
+      "cta-desc": "Book a free introductory lesson and discover which course is perfect for your child. Join 1.1 million families who already made the best decision for their child's future.",
+      "car1": "Kids Learning to Code", "car2": "Interactive Classrooms", "car3": "Team Projects", "car4": "Student Presentations", "car5": "Building Games",
+    };
+
+    const arTranslations = {
+      "summer-title": "دورات صيف 2026 مفتوحة الآن!",
+      "hero-badge-text": "التسجيل مفتوح — صيف 2026",
+      "hero-desc": 'حيث يتعلم الأطفال من عمر <strong>6 إلى 18</strong> البرمجة والإبداع وبناء المستقبل — مشروعاً تلو الآخر.',
+      "hero-motivational": '"أفضل استثمار يمكنك تقديمه لمستقبل طفلك هو المهارات التي يتعلمها اليوم."',
+      "stat1-label": "خريج", "stat2-label": "دولة", "stat3-label": "شريك",
+      "btn-register-text": "سجل عبر واتساب",
+      "btn-register-text-bottom": "سجل الآن عبر واتساب",
+      "trust-title": "موثوق من أكثر من 1.1 مليون عائلة حول العالم",
+      "trust-desc": "اختار أولياء الأمور في أكثر من 90 دولة الكورثمكس لأننا نقدم نتائج حقيقية.",
+      "trust1": "منهج معتمد", "trust2": "معايير عالمية", "trust3": "مهارات الذكاء الاصطناعي", "trust4": "بناء الثقة",
+      "quote1-text": "كل طفل يبعد سطراً واحداً من الكود عن اكتشاف قوته الخارقة. البرمجة ليست مجرد أجهزة كمبيوتر — إنها تعلم التفكير والإبداع وحل المشكلات بلا خوف.",
+      "quote1-author": "— فلسفة الكورثمكس",
+      "cnt1": "دورة فريدة", "cnt2": "الفئة العمرية", "cnt3": "درس لكل دورة", "cnt4": "دقيقة لكل جلسة",
+      "why-title": "لماذا يختار الآباء <span>الكورثمكس</span>؟",
+      "why-subtitle": "أكثر من مجرد مدرسة برمجة — نحن نصنع مفكرين ومبدعين وقادة المستقبل.",
+      "why1-title": "منهج متخصص", "why1-desc": "طوّره فريق من المعلمين وعلماء النفس التربويين — مصمم لكل فئة عمرية.",
+      "why2-title": "مدربون محترفون", "why2-desc": "تعلم من ممارسين تقنيين معتمدين يربطون بين النظرية والتطبيق العملي.",
+      "why3-title": "منصة 3 في 1", "why3-desc": "منصتنا التعليمية هي كتاب مهام ذكي وبيئة مشاريع ومجتمع اهتمامات مشتركة.",
+      "why4-title": "مشاريع حقيقية", "why4-desc": "يبني الطلاب ألعاباً ومواقع وتطبيقات ونماذج ذكاء اصطناعي حقيقية.",
+      "why5-title": "مجموعات صغيرة، تأثير كبير", "why5-desc": "فصول من 6-12 طالباً تضمن اهتماماً شخصياً لكل طفل.",
+      "why6-title": "اعتراف عالمي", "why6-desc": "موجودون في أكثر من 90 دولة مع 515 مدرسة شريكة.",
+      "values-title": "ماذا <span>يكتسب الأطفال</span>",
+      "values-subtitle": "مهارات تدوم مدى الحياة — أبعد بكثير من مجرد البرمجة.",
+      "v1-title": "التفكير المنطقي", "v1-desc": "حل المشكلات من خلال الخوارزميات والتفكير المنظم",
+      "v2-title": "العمل الجماعي", "v2-desc": "التعاون وتوزيع المهام وعرض الأفكار بثقة",
+      "v3-title": "الإبداع", "v3-desc": "التصميم والبناء والتجربة دون خوف من الأخطاء",
+      "v4-title": "الثقة بالنفس", "v4-desc": "عرض المشاريع أمام الجمهور بكل شجاعة",
+      "quote2-text": 'بعد 10 سنوات، لن يتذكر طفلك أي كرتون شاهده هذا الصيف. لكنه سيتذكر اللعبة التي بناها، والموقع الذي أطلقه، واللحظة التي أدرك فيها: "أستطيع صنع أي شيء."',
+      "quote2-author": "— لماذا يختارنا أولياء الأمور",
+      "path-title": "مسار <span>التعلم</span>",
+      "path-subtitle": "رحلة منظمة من أول كود إلى مهارات جاهزة للمستقبل.",
+      "courses-title": "دوراتنا <span>التدريبية</span>",
+      "courses-subtitle": "اضغط على أي دورة لاستكشاف ما سيتعلمه طفلك.",
+      "c1-title": "فارس البرمجة", "c1-age": "الأعمار 6–7",
+      "c1-highlight": '"هنا تبدأ السحر — أول مغامرة لطفلك الصغير في عالم المنطق والإبداع."',
+      "c1-desc": '<strong>خطوة أولى ساحرة في البرمجة!</strong> من خلال اللعب والقصص والاستكشاف العملي، يكتشف طفلك عالم البرمجة المثير — ويبني الثقة والإبداع من اليوم الأول.<ul class="learn-list"><li><strong>التفكير المنطقي</strong> — تسلسل الخوارزميات والتعرف على الأنماط من خلال الألعاب</li><li><strong>أفلام متحركة</strong> — إنشاء رسوم كرتونية وقصص تفاعلية خاصة بهم</li><li><strong>خوارزميات التكرار</strong> — فهم التكرار والإحداثيات بطريقة ممتعة</li><li><strong>سكراتش جونيور</strong> — البرمجة بكتل ملونة على أجهزة لوحية مصممة للأيدي الصغيرة</li><li><strong>الإبداع الجماعي</strong> — التعاون مع الأصدقاء في مشاريع جماعية ممتعة</li></ul>',
+      "c1-outcome": "يطور الأطفال الصبر والتركيز ومهارات حل المشكلات — وهم يستمتعون بوقتهم. يعودون إلى المنزل متحمسين لإظهار ما بنوه!",
+      "c2-title": "محو الأمية الرقمية", "c2-age": "الأعمار 7–9",
+      "c2-highlight": '"كل طفل يحتاج إلى الطلاقة الرقمية اليوم — هذه الدورة تضمن أن طفلك في المقدمة."',
+      "c2-desc": '<strong>مهارات الكمبيوتر الأساسية للقرن 21!</strong> إتقان الأدوات الرقمية اللازمة للتعلم الحديث والنجاح المدرسي والحياة اليومية.<ul class="learn-list"><li><strong>إتقان الكمبيوتر</strong> — الطباعة ومهارات لوحة المفاتيح/الفأرة وإدارة الملفات</li><li><strong>مهارات المعلومات</strong> — التمييز بين أنواع المعلومات المختلفة عبر الإنترنت</li><li><strong>الإبداع الرقمي</strong> — بناء التطبيقات والرسوم التوضيحية والأعمال الفنية الرقمية</li><li><strong>التواصل</strong> — البريد الإلكتروني وجهات اتصال جوجل والتعاون الآمن عبر الإنترنت</li><li><strong>السلامة عبر الإنترنت</strong> — قواعد أمان الإنترنت وأمان بطاقات الائتمان والعادات الذكية</li><li><strong>مشروع التخرج</strong> — إنشاء كتاب صور جماعي جميل للاحتفال</li></ul>',
+      "c2-outcome": "يصبح طفلك واثقاً رقمياً وآمناً عبر الإنترنت — مهارات سيستخدمها كل يوم في المدرسة وخارجها.",
+      "c3-title": "البرمجة المرئية", "c3-age": "الأعمار 9–10",
+      "c3-highlight": '"43٪ من طلاب الكورثمكس حول العالم يختارون البرمجة المرئية — الخطوة الأولى الأكثر شعبية في البرمجة الحقيقية."',
+      "c3-desc": '<strong>من أول خوارزمية إلى المشاريع المعقدة!</strong> إتقان منطق البرمجة من خلال لغة سكراتش البصرية — أشهر منصة برمجة للأطفال في العالم.<ul class="learn-list"><li><strong>أساسيات البرمجة</strong> — الخوارزميات والمتغيرات والحلقات والشروط وتصحيح الأخطاء</li><li><strong>بناء الألعاب والرسوم المتحركة</strong> — إنشاء مشاريع متزايدة التعقيد في سكراتش</li><li><strong>أساسيات التصميم الجرافيكي</strong> — تطبيق مبادئ التصميم والرسومات المتجهة</li><li><strong>حل المشكلات الإبداعي</strong> — التجريب والتكرار وإيجاد حلول أنيقة</li><li><strong>الخطابة العامة</strong> — تقديم المشاريع النهائية أمام جمهور حي بثقة</li></ul>',
+      "c3-outcome": 'ينتقل الأطفال من "أريد لعب الألعاب" إلى "أريد صنع الألعاب". يطورون التفكير الحسابي الذي يساعدهم في التفوق في الرياضيات والعلوم.',
+      "c4-title": "صناعة المحتوى المرئي", "c4-age": "الأعمار 9–11",
+      "c4-highlight": '"بدلاً من مجرد مشاهدة يوتيوب، سيتعلم طفلك كيف يصنع المحتوى — باحترافية وأمان وإبداع."',
+      "c4-desc": '<strong>كن صانع محتوى!</strong> تعلم إنتاج الفيديو الاحترافي والمونتاج واستراتيجيات نمو القنوات — حول وقت الشاشة إلى بناء مهارات إبداعية.<ul class="learn-list"><li><strong>التصوير والمونتاج</strong> — التصوير والمعالجة وإضافة التعليق الصوتي والمؤثرات</li><li><strong>بناء القناة</strong> — تطوير مفهوم المدونة وإنشاء وتصميم العلامة التجارية للقناة</li><li><strong>استراتيجية المحتوى</strong> — دراسة الأنواع الشائعة وكتابة السيناريو ومبادئ السرد القصصي</li><li><strong>نمو الجمهور</strong> — الحصول على أول المشتركين وتعلم التسويق الأخلاقي</li><li><strong>السلامة الرقمية</strong> — قواعد الأمان عبر الإنترنت التي يجب على كل صانع محتوى شاب معرفتها</li></ul>',
+      "c4-outcome": "وقت الشاشة يصبح وقت إبداع مفيد. يتعلم الأطفال السرد القصصي والتواصل والمسؤولية الرقمية.",
+      "c5-title": "التصميم الجرافيكي", "c5-age": "الأعمار 9–14",
+      "c5-highlight": '"التصميم هو لغة المستقبل. طفلك يتعلم التحدث بها بطلاقة — بنفس الأدوات التي يستخدمها المحترفون."',
+      "c5-desc": '<strong>أطلق الإبداع من خلال التواصل البصري!</strong> إتقان أدوات ومبادئ التصميم الجرافيكي الاحترافي.<ul class="learn-list"><li><strong>التكوين</strong> — ترتيب العناصر البصرية باستخدام مبادئ التخطيط الاحترافي</li><li><strong>نظرية الألوان</strong> — نموذج RGB والتشبع والدرجات واللوحات والتأثير العاطفي</li><li><strong>الضوء والفضاء</strong> — إدارة الظلال والعمق والحجم والتسلسل البصري</li><li><strong>انتباه المستخدم</strong> — التحكم في كيفية تفاعل المشاهدين مع التصميم</li><li><strong>بناء المحفظة</strong> — إنشاء تصاميم مذهلة يمكنهم مشاركتها بفخر</li></ul>',
+      "c5-outcome": "يطور الأطفال عيناً راقية للجماليات والتواصل تفيدهم في كل شيء من العروض المدرسية إلى المهن المستقبلية.",
+      "c6-title": "تصميم الألعاب", "c6-age": "الأعمار 10–11",
+      "c6-highlight": '"31٪ من طلاب الكورثمكس يختارون تصميم الألعاب — يحولون شغفهم بالألعاب إلى مهارات تطوير حقيقية."',
+      "c6-desc": '<strong>ادخل عالم تطوير الألعاب!</strong> أنشئ وبرمج وانشر ألعاباً حقيقية على منصة روبلوكس — المنصة التي تضم أكثر من 200 مليون لاعب نشط شهرياً.<ul class="learn-list"><li><strong>ألغاز المنطق</strong> — حل تحديات البرمجة ومهام التفكير الحسابي</li><li><strong>سرد الألعاب</strong> — تطوير قصص مقنعة واستراتيجيات اللعبة</li><li><strong>علم نفس اللاعب</strong> — التصميم لأنواع مختلفة من اللاعبين وأنماط المشاركة</li><li><strong>روبلوكس ستوديو</strong> — إنشاء ألعاب قابلة للعب بلغة برمجة لوا</li><li><strong>الإطلاق والترويج</strong> — نشر لعبتك وجذب لاعبين حقيقيين حول العالم</li></ul>',
+      "c6-outcome": "ينتقل طفلك من لعب الألعاب إلى بنائها. يتعلم البرمجة والتصميم وريادة الأعمال — وينتهي بلعبة منشورة يمكنه مشاركتها مع الأصدقاء.",
+      "c7-title": "بناء المواقع", "c7-age": "الأعمار 11–12",
+      "c7-highlight": '"الموقع الإلكتروني هو بطاقة العمل الأولى للطفل في العالم. هذه الدورة تمنحه المهارات لبنائها بنفسه."',
+      "c7-desc": '<strong>ابنِ الويب من الصفر!</strong> ميزة تنافسية في السوق العالمي تبدأ من هنا — يتعلم طفلك إنشاء مواقع حقيقية.<ul class="learn-list"><li><strong>التخطيط والتصميم</strong> — العصف الذهني لأفكار المواقع وتصميم هيكلها</li><li><strong>التصميم في فيجما</strong> — إنشاء نماذج احترافية قبل البناء</li><li><strong>كود HTML و CSS</strong> — كتابة كود حقيقي ونشره على GitHub Pages</li><li><strong>مبادئ UX/UI</strong> — إنشاء واجهات يحب المستخدمون التفاعل معها</li><li><strong>التجاوب مع الموبايل</strong> — تكييف المواقع للهواتف والأجهزة اللوحية وأجهزة الكمبيوتر</li></ul>',
+      "c7-outcome": "يبني طفلك موقعاً حقيقياً يعيش على الإنترنت — شيء ملموس صنعه بنفسه. إنها بداية محفظة رقمية تنمو معه.",
+      "c8-title": "بداية بايثون", "c8-age": "الأعمار 12–13",
+      "c8-highlight": '"45٪ من مراهقي الكورثمكس يختارون بداية بايثون — لغة البرمجة رقم 1 في العالم وبوابة كل مهنة تقنية."',
+      "c8-desc": '<strong>بداية قوية في البرمجة الحقيقية!</strong> تعلم بايثون — اللغة الأكثر طلباً التي تستخدمها جوجل ونتفليكس وناسا وكل شركة تقنية كبرى.<ul class="learn-list"><li><strong>الخوارزميات والبرمجة الكائنية</strong> — إتقان أساسيات البرمجة الكائنية</li><li><strong>مشاريع PyGame</strong> — بناء ألعاب رسومية تفاعلية بفيزياء حقيقية</li><li><strong>رسومات Turtle</strong> — إنشاء فن بصري ورسوم متحركة بالكود</li><li><strong>البيانات وتصحيح الأخطاء</strong> — العمل مع هياكل البيانات وقراءة الكود وإصلاح الأخطاء</li><li><strong>تصميم الواجهات</strong> — بناء واجهات رسومية وأتمتة عمليات الملفات</li><li><strong>العروض التقديمية الجماعية</strong> — التعاون وتقديم المشاريع أمام جمهور حي</li></ul>',
+      "c8-outcome": "يكتب مراهقك كود بايثون حقيقي — نفس اللغة المستخدمة في الذكاء الاصطناعي وعلم البيانات وتطوير الويب.",
+      "c9-title": "الذكاء الاصطناعي", "c9-age": "الأعمار 12–15",
+      "c9-highlight": '"الذكاء الاصطناعي يعيد تشكيل كل صناعة. هذه الدورة تضمن أن طفلك ليس مجرد مستخدم للـ AI — بل شخص يفهمه ويبدع به."',
+      "c9-desc": '<strong>اصنع المستقبل مع الذكاء الاصطناعي!</strong> أنشئ وعدّل النصوص والصور والموسيقى والفيديو والكود باستخدام أدوات الذكاء الاصطناعي المتطورة.<ul class="learn-list"><li><strong>كيف يعمل الـ AI</strong> — فهم الذكاء الاصطناعي التوليدي والشبكات العصبية والتعلم الآلي</li><li><strong>إتقان أدوات الـ AI</strong> — ChatGPT ومولدات الصور وفيديو AI والنمذجة ثلاثية الأبعاد</li><li><strong>AI + البرمجة</strong> — تعلم HTML وCSS وسير عمل البرمجة بمساعدة الـ AI</li><li><strong>إدارة المشاريع</strong> — تطوير مهارات العمل الجماعي والتعاون المرن</li><li><strong>عروض AI</strong> — إنشاء عروض تقديمية مقنعة مدعومة بالذكاء الاصطناعي</li><li><strong>المشروع النهائي</strong> — إكمال مشروع شامل باستخدام تقنيات AI متعددة</li></ul>',
+      "c9-outcome": "يصبح طفلك متعلماً في مجال الذكاء الاصطناعي — يفهم التكنولوجيا التي تغير العالم ويتعلم استخدامها بمسؤولية وإبداع.",
+      "c10-title": "تطوير ألعاب يونيتي", "c10-age": "الأعمار 12–16",
+      "c10-highlight": '"يونيتي يشغل 72٪ من أفضل ألعاب الموبايل في العالم. طفلك يتعلم نفس المحرك الذي تستخدمه الاستوديوهات المحترفة."',
+      "c10-desc": '<strong>أنشئ عوالم ثلاثية الأبعاد!</strong> يونيتي هو محرك الألعاب القياسي وراء آلاف الألعاب الاحترافية — وسيتقنه طفلك.<ul class="learn-list"><li><strong>محرك يونيتي</strong> — استخدام أدوات احترافية لتحويل أفكار الألعاب إلى واقع</li><li><strong>ألعاب جوية</strong> — إنشاء عوالم بالفيزياء والإضاءة وتأثيرات الجسيمات</li><li><strong>تصميم المراحل</strong> — تصميم مراحل اللعبة كمصمم مراحل محترف</li><li><strong>برمجة C#</strong> — كتابة السكريبتات والمتغيرات وأنواع البيانات ومنطق اللعبة</li><li><strong>مشاريع جماعية</strong> — التخطيط والتعاون وتقديم ألعاب نهائية مصقولة</li></ul>',
+      "c10-outcome": "يصنع مراهقك ألعاب 3D مذهلة ويتعلم C# — لغة مستخدمة في البرمجيات المؤسسية حول العالم.",
+      "c11-title": "بايثون برو", "c11-age": "الأعمار 14–17",
+      "c11-highlight": '"هذه الدورة التي تحول المراهقين إلى مطورين. سنتان من البرمجة المكثفة الواقعية لبناء محفظة حقيقية."',
+      "c11-desc": '<strong>من مبتدئ إلى محترف!</strong> ابنِ محفظة مطور حقيقية تشمل تطوير الألعاب وتطبيقات الويب وتطبيقات الموبايل وعلم البيانات.<ul class="learn-list"><li><strong>بايثون متقدم</strong> — الدوال والفئات والوحدات وهندسة الكود الاحترافية</li><li><strong>ألعاب وتطبيقات الكمبيوتر</strong> — إنشاء ألعاب تفاعلية وتطبيقات سطح المكتب</li><li><strong>قواعد البيانات</strong> — العمل مع PyGame وPyQT وأنظمة قواعد البيانات الحقيقية</li><li><strong>ألعاب 3D والويب</strong> — برمجة ألعاب 3D وبناء مواقع بـ Django</li><li><strong>علم البيانات</strong> — التنقيب في البيانات وخوارزميات التعلم الآلي مع Pandas</li><li><strong>تطبيقات الموبايل</strong> — تطوير تطبيقات موبايل متعددة المنصات مع Kivy</li><li><strong>منهجية أجايل</strong> — تطبيق Scrum وسير العمل المهني</li></ul>',
+      "c11-outcome": "يتخرج مراهقك بمحفظة مطور حقيقية — ألعاب ومواقع وتطبيقات موبايل ومشاريع بيانات. جاهزون لبرامج علوم الكمبيوتر بالجامعة.",
+      "c12-title": "تطوير الواجهات", "c12-age": "الأعمار 15–18",
+      "c12-highlight": '"مطورو الواجهات من بين أعلى المهنيين أجراً في مستوى الدخول. هذه الدورة تمنح مراهقك انطلاقة جدية."',
+      "c12-desc": '<strong>ابنِ تطبيقات ويب حقيقية!</strong> أنشئ وصمم وانشر تطبيقات ويب تفاعلية من الصفر — المهارات التي تبحث عنها شركات التقنية الآن.<ul class="learn-list"><li><strong>هندسة التطبيقات</strong> — تصور وتصميم تطبيقات الويب بتفصيل احترافي</li><li><strong>إتقان HTML و CSS</strong> — إنشاء واجهات بصرية جميلة ومتجاوبة</li><li><strong>قوة JavaScript</strong> — جعل التطبيقات تفاعلية وديناميكية بالكامل</li><li><strong>النشر</strong> — إطلاق مشاريع حية على خوادم حقيقية ليراها العالم</li><li><strong>جاهز للسوق</strong> — بناء مجموعة المهارات التي توظف من أجلها شركات التقنية</li></ul>',
+      "c12-outcome": "يبني مراهقك تطبيقات ويب احترافية وينشرها. يتخرجون بمهارات قابلة للتسويق — بعض الطلاب يحصلون على عملاء مستقلين وهم لا يزالون في الدورة.",
+      "cta-title": "مستعد <span>للبدء؟</span>",
+      "cta-desc": "احجز درساً تعريفياً مجانياً واكتشف الدورة المناسبة لطفلك. انضم إلى 1.1 مليون عائلة اتخذت أفضل قرار لمستقبل أطفالها.",
+      "car1": "أطفال يتعلمون البرمجة", "car2": "فصول تفاعلية", "car3": "مشاريع جماعية", "car4": "عروض الطلاب", "car5": "بناء الألعاب",
+    };
+
+    const kuTranslations = {
+      "summer-title": "خولێن هاڤینا 2026 نوکە ڤەکرین!",
+      "hero-badge-text": "تۆمارکرن دەستپێکری — هاڤینا 2026",
+      "hero-desc": 'لێرە زارۆکێن ژ <strong>5 هەتا 18</strong> فێری کودینگێ ، و داهێنانێ و ئاڤاکرنا پاشەڕۆژێ دبن.',
+      "hero-motivational": '"باشترین وەبەرهێنان بۆ داهاتووی زارۆکت ئەو تواناییانەن کە ئەمڕۆ فێردەبێت."',
+      "stat1-label": "دەرچوویی", "stat2-label": "وڵات", "stat3-label": "هەڤکار",
+      "btn-register-text": "ل واتسئەپ تۆمار بکە",
+      "btn-register-text-bottom": "ئەنجا ل واتسئەپ تۆمار بکە",
+      "trust-title": "باوەڕپێکراوە ژلایێ 1.1M+ خێزانان ل سەرانسەری جیهانێ",
+      "trust-desc": "دایک و باب ل زێدەتر ژ 90 وەڵاتان ئەلگۆریتمیکس هەلبژارتن.",
+      "trust1": "بەرنامەیەکی پەسندکراو", "trust2": "ستانداردێن جیهانی", "trust3": "تواناییێن ژیرییا دەستکرد", "trust4": "ئاڤاکرنا متمانەیێ",
+      "quote1-text": "هەر زاروکەک تنێ رێزەکا کودی یێ دیرە ژ دیتنا هێزا خو یا ڤەشارتی، پروگرامسازی نە تنێ بکارئینانا کومپیوتەرانە - بەلکو تێگەهشتا ئاریشەیان و دیتنا رێکێن جودایە بو چارەسەرکرنێ..",
+      "quote1-author": "— فەلسەفەیا ئەلگۆریتمیکس",
+      "cnt1": "خولێن جیاواز", "cnt2": "رێزا تەمەنی", "cnt3": "دەرس بۆ هەر خولەکی", "cnt4": "خولەک بۆ هەر وانه",
+      "why-title": "بۆچی دایک و باب <span>ئەلگۆریتمیکس</span> هەلدبژێرن",
+      "why-subtitle": "زێدەتر ژ قوتابخانەیەکا کودینگێ — ئەم رامان، داهێنان و سەرکردایەتی پەروەردە دکەین.",
+      "why1-title": "بەرنامەیەکی پسپۆڕ", "why1-desc": "ژلایێ پتر ژ ٤٠ زاناو دەرونناسێن روسی ڤە هاتیە گەشەپێدان و ئامادەکرن بو هەر تەمەنەکێ.",
+      "why2-title": "مامۆستایێن پسپۆڕ", "why2-desc": "ژ ماموستایێن پسپور فێربە کو تیوری ب پراکتیکی ڤە گرێددەن",
+      "why3-title": "پلاتفۆرما 3 ل 1", "why3-desc": "پلاتفورما مە ژ سیستەمەکێ زیرەک و ژینگەهەکا تژی پروژە و کومەلگەهەکا فێرکاری پێک دهێت",
+      "why4-title": "پرۆژەیێن راستەقینە", "why4-desc": "قوتابی یاری، ماڵپەر، بەرنامە و مۆدێلێن ژیرییا دەستکرد دروست دکەن.",
+      "why5-title": "گروپێن بچووک، کاریگەرییا مەزن", "why5-desc": "پۆلێن 6-12 قوتابییان بالداریێ کەسانی بۆ هەر زارۆکەکی مسۆگەر دکەن.",
+      "why6-title": "ناسینا جیهانی", "why6-desc": "ل زێدەتر ژ 90 وڵاتان و 515 قوتابخانەیێن هەڤکار.",
+      "values-title": "دەستکەفتێن زاروکان <span>پشتی تمامبوونا کورسی</span>",
+      "values-subtitle": "تواناییێن کو ژیانەکا تەواو دمێنن.",
+      "v1-title": "ھزرکرنا لۆژیکی", "v1-desc": "چارەسەرکرنا کێشەیان ب ئەلگۆریتمان",
+      "v2-title": "کارێ ب کۆم", "v2-desc": "ھەڤکاری، دابەشکرنا ئەرکان و پێشکەشکرنا ھزران",
+      "v3-title": "داھێنان", "v3-desc": "دیزاین، ئاڤاکرن و ئەزموون بێی کو ژ خەلەتیان بترسن",
+      "v4-title": "باوەری بخۆ بوون", "v4-desc": "پێشکەشکرنا پرۆژەیان لبەر ئامادەبووان",
+      "quote2-text": 'پشتی ١٠ سالان زاروکێ تە دێ ژبیر کەت وی چ یاری کریە، بەلێ ژبیر ناکەت کا وی چ یاری بدەستێن خو چێکرینە و چ مالپەر دروست کرینە. و وی دەمێ وی بریاردای ئەز دشێم هەمی تشتان دروست بکەم."',
+      "quote2-author": "— بۆچی دایک و باب مە هەلدبژێرن",
+      "path-title": "ڕیا <span>فێرکرنێ</span>",
+      "path-subtitle": "ڕێبازەکا بەرنامەکراو ژ کودی یەکەم هەتا تواناییێن ئامادەی کارکرنێ.",
+      "courses-title": "خولێن <span>مە</span>",
+      "courses-subtitle": "لسەر هەر خولەکی بکلیکنە بۆ ئەوەی بزانی زارۆکێ تە چی فێردەبێت.",
+      "c1-title": "دەستپێکا کودینگێ", "c1-age": "ژی 6–7",
+      "c1-highlight": '"لێرە سیحر دەستپێدکەت — یەکەمین سەرهاتییا زارۆکێ تە یێ بچووک ل دونیایا لۆژیک و داهێنانێ."',
+      "c1-desc": '<strong>گاڤەک ل کودینگێ!</strong> ب یاری، چیرۆک و ڤەکۆلینا پراکتیکی، زارۆکێ تە دنیایا پرۆگرامکرنێ ب هەیەجان کەشف دکەت — متمانە و داهێنان ژ ڕۆژا یەکەم ئاڤا دکەت.<ul class="learn-list"><li><strong>رامانا لۆژیکی</strong> — ڕێزکرنا ئەلگۆریتمان و ناسینا قالبان ب یارییان</li><li><strong>فیلمێن ئەنیمەیشنی</strong> — دروستکرنا کارتونان و چیرۆکێن کارلێکەر</li><li><strong>ئەلگۆریتمێن دووبارەکرنێ</strong> — فێمکرنا دووبارەکرنێ ب ئاوایەکی دلخۆش</li><li><strong>سکرەتش JR</strong> — کودکرن ب بلۆکێن رەنگین لسەر تابلێتان</li><li><strong>داهێنانا کۆمی</strong> — هەڤکاری ب هەڤالان ل پرۆژەیێن کۆمەلایەتی</li></ul>',
+      "c1-outcome": "زارۆک سەبر، بالداری و تواناییێن چارەسەرکرنا کێشەیان گەشە دکەن — هەمی دەمی خۆش دەربازدکەن. بگەڕینەڤە ماڵ ب هەیەجانەکا مەزن بۆ نیشاندانا ئەوا کو ئاڤا کرینە!",
+      "c2-title": "شارەزاییا دیجیتاڵی", "c2-age": "ژی 7–9",
+      "c2-highlight": '"هەر زارۆکەک ئەڤڕۆ پێویستی ب شارەزاییا دیجیتاڵی هەیە — ئەڤ خولە مسۆگەر دکەت کو زارۆکێ تە ل پێشییە."',
+      "c2-desc": '<strong>تواناییێن کۆمپیوتەری یێن سەدەیا 21!</strong> فێربوونا ئامرازێن دیجیتاڵی یێن پێویست بۆ فێربوونا نوژەن و سەرکەفتنا قوتابخانێ.<ul class="learn-list"><li><strong>فێربوونا کۆمپیوتەری</strong> — تایپکرن و بەڕێڤەبرنا فایلان</li><li><strong>تواناییێن زانیاریان</strong> — جیاکرنا جۆرێن جیاوازێن زانیاریان ل سەر ئینتەرنێتی</li><li><strong>داهێنانا دیجیتاڵی</strong> — ئاڤاکرنا بەرنامە و هونەرا دیجیتاڵی</li><li><strong>پەیوەندیدانان</strong> — ئیمەیل و هەڤکارییا ئاسایش ل سەر ئینتەرنێتی</li><li><strong>ئاسایشا ل سەر ئینتەرنێتی</strong> — ڕێسایێن ئاسایشا ئینتەرنێتی و ئادەتێن زیرەک</li><li><strong>پرۆژەیا دەرچوونێ</strong> — دروستکرنا ئەلبومەکا وێنەیی بکۆم بۆ پیرۆزبایی</li></ul>',
+      "c2-outcome": "زارۆکێ تە دبیتە کەسەکی ب متمانە ل دیجیتاڵی و ئاسایش ل سەر ئینتەرنێتی — تواناییەکو هەر ڕۆژ ل قوتابخانە و دەرڤەیی بکاربهینێت.",
+      "c3-title": "پرۆگرامکرنا دیتنی", "c3-age": "ژی 9–10",
+      "c3-highlight": '"43٪ ژ قوتابییێن ئەلگۆریتمیکس ل سەرانسەری جیهانێ پرۆگرامکرنا دیتنی هەلدبژێرن — گاڤا یەکەم ا هەری پۆپولەر ل کودینگا راستەقینە."',
+      "c3-desc": '<strong>ژ ئەلگۆریتما یەکەم هەتا پرۆژەیێن ئاڵۆز!</strong> فێربوونا لۆژیکا پرۆگرامکرنێ ب زمانا سکرەتش — پلاتفۆرما کودینگا هەری پۆپولەر بۆ زارۆکان ل جیهانێ.<ul class="learn-list"><li><strong>بنەمایێن پرۆگرامکرنێ</strong> — ئەلگۆریتم، ڤاریابل، لووپ، مەرج و ڕاستکرنا خەلەتییان</li><li><strong>ئاڤاکرنا یارییان و کارتونان</strong> — دروستکرنا پرۆژەیێن زێدەتر ئاڵۆز ل سکرەتش</li><li><strong>بنەمایێن دیزاینا گرافیکی</strong> — جێبەجێکرنا پرەنسیپێن دیزاینی</li><li><strong>چارەسەرکرنا کێشەیان ب داهێنانی</strong> — ئەزموون و دۆزینەڤەکرنا چارەسەرییێن جوان</li><li><strong>ئاخاڤتنا گشتی</strong> — پێشکەشکرنا پرۆژەیێن تەواو لبەر ئامادەبووان ب متمانەیی</li></ul>',
+      "c3-outcome": 'زارۆک ژ "ئەز ڤێم یاری بکەم" دگوهەڕن بو "ئەز ڤێم یارییان دروست بکەم". رامانا حسابکرنێ گەشە دکەن کو ل بیرکاری و زانستی یارمەتییان دیدەت.',
+      "c4-title": "دروستکرنا ناڤەڕۆکا ڤیدیۆیی", "c4-age": "ژی 9–11",
+      "c4-highlight": '"لجیاتی تەنێ تەماشاکرنا یوتیوب، زارۆکێ تە فێردەبیت چاوا دروست بکەت — ب پسپۆری، ئاسایشی و داهێنانی."',
+      "c4-desc": '<strong>بیبە دروستکەرێ ناڤەڕۆکی!</strong> فێربوونا دروستکرنا ڤیدیویا پسپۆڕ و مونتاج و ستراتیژییێن گەشەکرنا کەناڵی.<ul class="learn-list"><li><strong>فیلمکرن و مونتاج</strong> — کێشان، پرۆسێسکرن و زێدەکرنا ئەفێکت</li><li><strong>ئاڤاکرنا کەناڵی</strong> — گەشەپێدانا کۆنسێپتی بلۆگی و براندکرنا کەناڵی</li><li><strong>ستراتیژییا ناڤەڕۆکی</strong> — لێکۆلینا ژانرێن پۆپولەر و سیناریۆنووسین</li><li><strong>گەشەکرنا ئامادەبووان</strong> — بدەستڤەئینانا ئابونەیێن یەکەم</li><li><strong>ئاسایشا دیجیتاڵی</strong> — ڕێسایێن ئاسایشی یێن ئۆنلاین بۆ هەر دروستکەرەکی لاو</li></ul>',
+      "c4-outcome": "دەما ئێکرانی دبیتە دەمەکا داهێنانا بەرهەمدار. زارۆک چیرۆکبێژی، پەیوەندیدانان و بەرپرسیارییا دیجیتاڵی فێردبن.",
+      "c5-title": "دیزاینا گرافیکی", "c5-age": "ژی 9–14",
+      "c5-highlight": '"دیزاین زمانێ ئایندەیە. زارۆکێ تە فێردەبیت ب ئەڤ زمانی ب فەساهەت بئاخڤیت — ب هەمان ئامرازێن کو پسپۆڕ بکاردیهینن."',
+      "c5-desc": '<strong>داهێنانی ب پەیوەندییا دیتنی بنەڕەت بکە!</strong> فێربوونا ئامراز و پرەنسیپێن دیزاینا گرافیکا پسپۆڕ.<ul class="learn-list"><li><strong>کۆمپۆزیسیۆن</strong> — ڕێکخستنا هێمانێن دیتنی ب پرەنسیپێن لەی ئاوتا پسپۆڕ</li><li><strong>تیوریا رەنگان</strong> — مۆدیلا RGB، ساتورەیشن، تۆنان و کاریگەرییا هەستی</li><li><strong>ڕووناکی و ئاسۆ</strong> — بەڕێڤەبرنا سیبەر، قوولایی و هایرارکییا دیتنی</li><li><strong>بالداریا بکارهێنەر</strong> — کۆنترۆلکرنا چاوا بینەر ب دیزاینا کارلێکەری دبن</li><li><strong>ئاڤاکرنا پۆرتفۆلیو</strong> — دروستکرنا دیزاینێن جوان کو بتوانن ب سەربەرزی پیشان بدەن</li></ul>',
+      "c5-outcome": "زارۆک چاڤەکا پسپۆڕ بۆ جوانی و پەیوەندیدانانان گەشە دکەن کو ل هەمی تشتەکی ژ پێشکەشکرنێن قوتابخانێ هەتا کارێن ئایندەیی سوود دیدەت.",
+      "c6-title": "دیزاینا یارییان", "c6-age": "ژی 10–11",
+      "c6-highlight": '"31٪ ژ قوتابیان دیزاینا یارییان هەلدبژێرن — ئەڤینداریا خۆ ب یارییان دگوهەڕنە تواناییێن گەشەپێدانا راستەقینە."',
+      "c6-desc": '<strong>بکەڤە دنیایا گەشەپێدانا یارییان!</strong> دروستکرن، کودکرن و بڵاڤکرنا یارییێن راستەقینە لسەر پلاتفۆرما ڕۆبلۆکس.<ul class="learn-list"><li><strong>پازلێن لۆژیکی</strong> — چارەسەرکرنا چالێنجێن کودکرنێ</li><li><strong>چیرۆکبێژییا یارییان</strong> — گەشەپێدانا چیرۆکێن بالکێش و ستراتیژییێن یارییان</li><li><strong>دەرونناسییا یاریکەران</strong> — دیزاینکرن بۆ جۆرێن جیاوازێن یاریکەران</li><li><strong>ڕۆبلۆکس ستوودیو</strong> — دروستکرنا یارییان ب زمانا لوا</li><li><strong>دەرخستن و ڕیکلام</strong> — بڵاڤکرنا یاریا خۆ و کێشانا یاریکەرێن راستەقینە</li></ul>',
+      "c6-outcome": "زارۆکێ تە ژ یاریکرنا یارییان دگوهەڕیت بۆ ئاڤاکرنا وان. پرۆگرامکرن، دیزاین و کارکردنا سەربەخۆ فێردبیت.",
+      "c7-title": "ئاڤاکرنا ماڵپەران", "c7-age": "ژی 11–12",
+      "c7-highlight": '"ماڵپەر یەکەمین کارتا کاری یا زارۆکی یە ل دنیایێ. ئەڤ خولە تواناییان دیدەتێ بۆ ئاڤاکرنا وێ ب دەستێ خۆ."',
+      "c7-desc": '<strong>ماڵپەرێ ژ سفرێ ئاڤا بکە!</strong> قازانجەکا پێشبازییا ل بازاڕا جیهانی لێرە دەستپێدکەت — زارۆکێ تە فێردبیت ماڵپەرێن راستەقینە دروست بکەت.<ul class="learn-list"><li><strong>کۆنسێپت و پلان</strong> — ئایدیاکرن بۆ ماڵپەران و دیزاینکرنا ئاوابەندییا وان</li><li><strong>دیزاین ل فیگمایێ</strong> — دروستکرنا مۆکئاپێن پسپۆڕ بەرێ ئاڤاکرنێ</li><li><strong>کودا HTML و CSS</strong> — نووسینا کودа راستەقینە و بڵاڤکرن ل GitHub Pages</li><li><strong>پرەنسیپێن UX/UI</strong> — دروستکرنا ئینتەرفەیسێن کو بکارهینەران حەزدکەن</li><li><strong>ڕەسپۆنسیڤا مۆبایلی</strong> — گونجاندنا ماڵپەران بۆ تەلەفونان و تابلێتان</li></ul>',
+      "c7-outcome": "زارۆکێ تە ماڵپەرەکی راستەقینە ئاڤا دکەت کو لسەر ئینتەرنێتی ژیانا خۆ دژیت — تشتەکی بەرچاڤ کو ب دەستێ خۆ دروست کریە.",
+      "c8-title": "دەستپێکرنا پایتۆن", "c8-age": "ژی 12–13",
+      "c8-highlight": '"45٪ ژ هەرزەکارێن ئەلگۆریتمیکس دەستپێکرنا پایتۆن هەلدبژێرن — زمانا پرۆگرامکرنێ ا ژمارە 1 ل جیهانێ."',
+      "c8-desc": '<strong>دەستپێکەکا قایم ل پرۆگرامکرنا راستەقینە!</strong> فێربوونا پایتۆن — زمانا هەری پێویست کو جی گوگل، نێتفلیکس و ناسا بکاردیهینن.<ul class="learn-list"><li><strong>ئەلگۆریتم و OOP</strong> — فێربوونا بنەمایێن پرۆگرامکرنا ئۆبجێکت-ئۆرییەنتید</li><li><strong>پرۆژەیێن PyGame</strong> — ئاڤاکرنا یارییێن گرافیکی ب فیزیکا راستەقینە</li><li><strong>گرافیکا Turtle</strong> — دروستکرنا هونەرا دیتنی و ئەنیمەیشنی ب کود</li><li><strong>داتا و دەبەگکرن</strong> — کارکرن ب ئاوابەندییێن داتایان و ڕاستکرنا خەلەتییان</li><li><strong>دیزاینا ئینتەرفەیسی</strong> — ئاڤاکرنا UI یێن گرافیکی و ئۆتۆماتکرنا ئۆپەرەیشنێن فایلان</li><li><strong>پێشکەشکرنا کۆمی</strong> — هەڤکاری و پێشکەشکرنا پرۆژەیان لبەر ئامادەبووان</li></ul>',
+      "c8-outcome": "لاوێ تە کودا پایتۆنا راستەقینە دنووسیت — هەمان زمانا کو ل ژیرییا دەستکرد و زانستا داتایان و گەشەپێدانا ڤێبی بکاردیهینن.",
+      "c9-title": "ژیرییا دەستکرد", "c9-age": "ژی 12–15",
+      "c9-highlight": '"ژیرییا دەستکرد هەر صنعەتەکی دگوهەڕیت. ئەڤ خولە مسۆگەر دکەت کو زارۆکێ تە نە تەنێ بکارهینەرێ AI یە — بەڵکو کەسەکییە کو تێدگەهیت و پێ دروست دکەت."',
+      "c9-desc": '<strong>ئایندەیی ب ژیرییا دەستکرد ئاڤا بکە!</strong> دروستکرن و گوهارتنا دەق، وێنە، موسیک، ڤیدیو و کود ب ئامرازێن ژیرییا دەستکرد.<ul class="learn-list"><li><strong>چاوا AI کاردکەت</strong> — فێمکرنا AI یا ئاڤاکار، تۆرێن نەورۆنی و فێربوونا ماشینی</li><li><strong>فێربوونا ئامرازێن AI</strong> — ChatGPT، دروستکەرێن وێنان، ڤیدیو AI و مۆدێلکرنا 3D</li><li><strong>AI + کودکرن</strong> — فێربوونا HTML، CSS و ئاکاری کودکرنێ ب یارمەتییا AI</li><li><strong>بەڕێڤەبرنا پرۆژەیان</strong> — گەشەپێدانا تواناییێن کارکردنا ب کۆم</li><li><strong>پێشکەشکرنێن AI</strong> — دروستکرنا پێشکەشکرنێن بالکێش ب هێزا AI</li><li><strong>پرۆژەیا کۆتایی</strong> — تەواوکرنا پرۆژەیەکا گشتگیر ب تەکنۆلۆژییێن AI یێن جۆراوجۆر</li></ul>',
+      "c9-outcome": "زارۆکێ تە شارەزا دبیت ل بوارا ژیرییا دەستکرد — تەکنۆلۆژییا کو دنیایێ دگوهەڕیت تێدگەهیت و فێردبیت ب بەرپرسیاری و داهێنانی بکاربهینیت.",
+      "c10-title": "گەشەپێدانا یارییان ب یونیتی", "c10-age": "ژی 12–16",
+      "c10-highlight": '"یونیتی 72٪ ژ باشترین یارییێن مۆبایلی ل جیهانێ دخوێنیت. زارۆکێ تە هەمان مۆتۆرا کو ستوودییۆیێن پسپۆڕ بکاردیهینن فێردبیت."',
+      "c10-desc": '<strong>دنیایێن 3D دروست بکە!</strong> یونیتی مۆتۆرا یارییێ ستانداردی یە لپشتی هەزاران یارییێن پسپۆڕ — و زارۆکێ تە وێ فێردبیت.<ul class="learn-list"><li><strong>مۆتۆرا یونیتی</strong> — بکارهینانا ئامرازێن پسپۆڕ بۆ ژیانبەخشینا ئایدیاکان</li><li><strong>یارییێن ئاتمۆسفەری</strong> — دروستکرنا دنیایان ب فیزیک، ڕووناکی و ئەفێکتان</li><li><strong>دیزاینا ئاستان</strong> — دیزاینکرنا ئاستێن یارییان وەکو دیزاینەرەکی پسپۆڕ</li><li><strong>پرۆگرامکرنا C#</strong> — نووسینا سکریپتان و لۆژیکا یارییان</li><li><strong>پرۆژەیێن کۆمی</strong> — پلانکرن، هەڤکاری و پێشکەشکرنا یارییێن کۆتایی</li></ul>',
+      "c10-outcome": "لاوێ تە یارییێن 3D یێن جوان دروست دکەت و C# فێردبیت — زمانەکو ل سۆفتوێرا سازییان ل سەرانسەری جیهانێ بکاردیهینن.",
+      "c11-title": "پایتۆن پرۆ", "c11-age": "ژی 14–17",
+      "c11-highlight": '"ئەڤ ئەو خولەیە کو لاوان دگوهەڕیتە دڤێلۆپەران. دوو ساڵ پرۆگرامکرنا راستەقینە بۆ ئاڤاکرنا پۆرتفۆلیۆیەکی راستەقینە."',
+      "c11-desc": '<strong>ژ دەستپێکەر بۆ پسپۆڕ!</strong> ئاڤاکرنا پۆرتفۆلیۆیەکا دڤێلۆپەری راستەقینە کو گەشەپێدانا یارییان، بەرنامەیێن ڤێبی، بەرنامەیێن مۆبایلی و زانستا داتایان دگریتەخۆ.<ul class="learn-list"><li><strong>پایتۆنا پێشکەفتو</strong> — فونکشن، کلاس، مۆدیول و هەندەسەیا کودا پسپۆڕ</li><li><strong>یاری و بەرنامەیێن PC</strong> — دروستکرنا یارییێن کارلێکەر و بەرنامەیێن دێسکتاپ</li><li><strong>داتابەیس</strong> — کارکردن ب PyGame، PyQT و سیستەمێن داتابەیس</li><li><strong>یارییێن 3D و ڤێب</strong> — پرۆگرامکرنا یارییان و ئاڤاکرنا ماڵپەران ب Django</li><li><strong>زانستا داتایان</strong> — کولینا داتایان و ئەلگۆریتمێن فێربوونا ماشینی ب Pandas</li><li><strong>بەرنامەیێن مۆبایلی</strong> — گەشەپێدانا بەرنامەیێن مۆبایلی ب Kivy</li><li><strong>مەتۆدۆلۆژییا ئەجایل</strong> — جێبەجێکرنا Scrum و ئاکاری کارکردنا پسپۆڕ</li></ul>',
+      "c11-outcome": "لاوێ تە ب پۆرتفۆلیۆیەکا دڤێلۆپەری راستەقینە دەرددکەڤیت — یاری، ماڵپەر، بەرنامەیێن مۆبایلی و پرۆژەیێن داتایان. ئامادەن بۆ بەرنامەیێن زانستا کۆمپیوتەری ل زانکۆیێ.",
+      "c12-title": "گەشەپێدانا فرۆنت-ئێند", "c12-age": "ژی 15–18",
+      "c12-highlight": '"دڤێلۆپەرێن فرۆنت-ئێند ل نێو بلندترین موچەگران ل ئاستا دەستپێکەیینە. ئەڤ خولە دەستپێکەکا جدی دیدەتە لاوێ تە."',
+      "c12-desc": '<strong>بەرنامەیێن ڤێبی یێن راستەقینە ئاڤا بکە!</strong> دروستکرن، دیزاینکرن و بڵاڤکرنا بەرنامەیێن ڤێبی یێن کارلێکەر ژ سفرێ.<ul class="learn-list"><li><strong>هەندەسەیا بەرنامەیان</strong> — تەسەبور و دیزاینکرنا بەرنامەیێن ڤێبی ب پسپۆڕی</li><li><strong>فێربوونا HTML و CSS</strong> — دروستکرنا ئینتەرفەیسێن دیتنی یێن جوان و ڕەسپۆنسیڤ</li><li><strong>هێزا JavaScript</strong> — کرنا بەرنامەیان ب تەواوی کارلێکەر و داینامیک</li><li><strong>بڵاڤکرن</strong> — دەرخستنا پرۆژەیێن ژیان لسەر سێرڤەرێن راستەقینە</li><li><strong>ئامادەی بۆ بازاری</strong> — ئاڤاکرنا کۆمەڵا تواناییان کو کۆمپانییێن تەکنۆلۆژی بۆ دخوازن</li></ul>',
+      "c12-outcome": "لاوێ تە بەرنامەیێن ڤێبی یێن پسپۆڕ ئاڤا دکەت و بڵاڤ دکەت. ب تواناییێن بازاری دەرددکەڤن — هندەک قوتابی کلایەنتێن فریلانس دگرن هێ ل دەما خولێ.",
+      "cta-title": "ئامادەی بۆ <span>دەستپێکرنی؟</span>",
+      "cta-desc": "وانەیەکا ناسیارکرنا بەرگری بکە و بزانە کام خول بۆ زارۆکێ تە گونجایی یە.",
+      "car1": "زارۆک فێری کۆدکرنێ دبن", "car2": "پۆلێن کارلێکەری", "car3": "پرۆژەیێن کۆمەلایەتی", "car4": "پێشکەشکرنا قوتابیان", "car5": "ئاڤاکرنا یارییان",
+    };
+
+    // Init
+    switchLang('en');
+  </script>
+</body>
+
+</html>
